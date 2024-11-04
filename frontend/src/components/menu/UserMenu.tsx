@@ -40,17 +40,13 @@ const MenuContent = () => {
           <Home className="mr-3 h-6 w-6" />
           <Message>home</Message>
         </MenuNavItem>
-        <MenuNavItem to="/portfolios">
+        <MenuNavItem to="/food">
           <FolderOpen className="mr-3 h-6 w-6" />
-          <Message>portfolios</Message>
+          <Message>food</Message>
         </MenuNavItem>
-        <MenuNavItem to="/assets">
+        <MenuNavItem to="/exercise">
           <LineChart className="mr-3 h-6 w-6" />
-          <Message>assets</Message>
-        </MenuNavItem>
-        <MenuNavItem to="/leader-boards">
-          <Trophy className="mr-3 h-6 w-6" />
-          <Message>leaderBoards</Message>
+          <Message>exercise</Message>
         </MenuNavItem>
         <MenuNavItem to="/settings">
           <Settings className="mr-3 h-6 w-6" />

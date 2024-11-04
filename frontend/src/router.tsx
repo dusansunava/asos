@@ -12,10 +12,8 @@ const WelcomePage = lazy(() => import("@/pages/guest/welcome/page"));
 const NotFoundPage = lazy(() => import("@/pages/not-found/page"));
 const HomePage = lazy(() => import("@/pages/user/home/page"));
 const SettingsPage = lazy(() => import("@/pages/user/settings/page"));
-const PortfoliosPage = lazy(() => import("@/pages/user/portfolios/page"));
-const AssetsPage = lazy(() => import("@/pages/user/assets/page"));
-const LeaderBoardsPage = lazy(() => import("@/pages/user/leader-boards/page"));
-const VerifyEmailPage = lazy(() => import("@/pages/guest/verify-email/page"));
+const FoodPage = lazy(() => import("@/pages/user/food/page"));
+const ExercisePage = lazy(() => import("@/pages/user/exercise/page"));
 const ResetPasswordPage = lazy(
   () => import("@/pages/guest/reset-password/page")
 );
@@ -58,14 +56,6 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="verify-email"
-          element={
-            <Suspense fallback={<PageLoader />}>
-              <VerifyEmailPage />
-            </Suspense>
-          }
-        />
-        <Route
           path="reset-password"
           element={
             <Suspense fallback={<PageLoader />}>
@@ -84,26 +74,18 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="assets"
+          path="exercise"
           element={
             <Suspense fallback={<PageLoader />}>
-              <AssetsPage />
+              <ExercisePage />
             </Suspense>
           }
         />
         <Route
-          path="portfolios"
+          path="food"
           element={
             <Suspense fallback={<PageLoader />}>
-              <PortfoliosPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="leader-boards"
-          element={
-            <Suspense fallback={<PageLoader />}>
-              <LeaderBoardsPage />
+              <FoodPage />
             </Suspense>
           }
         />

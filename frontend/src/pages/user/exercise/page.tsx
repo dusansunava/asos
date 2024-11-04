@@ -1,12 +1,12 @@
 import PageTitle from "@/components/PageTitle";
 import { IntlMessagePathProvider } from "@/providers/intl/IntlMessagePath";
 
-const PortfoliosPage = () => {
+const ExercisePage = () => {
   return (
-    <IntlMessagePathProvider value="Portfolios" override>
+    <IntlMessagePathProvider value="Exercise" override>
       <PageTitle />
     </IntlMessagePathProvider>
   );
 };
 
-export default PortfoliosPage;
+export default ExercisePage;
