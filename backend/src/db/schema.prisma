@@ -16,7 +16,6 @@ model User {
   salt         String
   refreshToken String?
   portfolios   Portfolio[]
-  verifiedAt   DateTime?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 

@@ -4,8 +4,6 @@ import {
   LoginFormSchema,
   LoginForm,
   LoginResponse,
-  VerifyEmailFormSchema,
-  VerifyEmailForm,
   LoginError,
   SendResetPasswordEmail,
   SendResetPasswordEmailSchema,
@@ -40,9 +38,6 @@ const LoginPage = () => {
   const invalidCredentialsMessage = useMessage({
     value: "Login.invalidCredentials",
   });
-  const notVerifiedEmailMessage = useMessage({
-    value: "Login.notVerified",
-  });
 
   const form = useForm<LoginForm>({
     resolver: zodResolver(LoginFormSchema),
@@ -63,8 +58,6 @@ const LoginPage = () => {
     onError: (error: AxiosError<any, LoginError>) => {
       if (error.response?.data?.credentials === "not_matching") {
         setError("username", { message: invalidCredentialsMessage });
-      } else if (error.response?.data?.email === "not_verified") {
-        setError("username", { message: notVerifiedEmailMessage });
       }
     },
     onSuccess: (data) => {
@@ -126,7 +119,6 @@ const LoginPage = () => {
             </div>
             <div className="flex sm:flex-row gap-y-4 flex-col items-center w-full justify-between">
               <div className="flex flex-row gap-x-4 justify-start items-center leading-4">
-                <VerifyEmailRequestForm />
                 <ResetPasswordRequestForm />
               </div>
 
@@ -145,77 +137,6 @@ const LoginPage = () => {
         </Form>
       </div>
     </IntlMessagePathProvider>
-  );
-};
-
-const VerifyEmailRequestForm = () => {
-  const form = useForm<VerifyEmailForm>({
-    resolver: zodResolver(VerifyEmailFormSchema),
-    defaultValues: {
-      email: "",
-    },
-  });
-
-  const { mutateAsync, isPending, isSuccess } = useMutateRequest({
-    url: "/email/sendVerification",
-    method: "POST",
-  });
-
-  const onSubmit = async (data: VerifyEmailForm) => {
-    await mutateAsync(data);
-  };
-
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="link" className="p-0 h-7">
-          <Message>verifyEmail</Message>
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="gap-y-6">
-        <DialogHeader>
-          <DialogTitle>
-            <Message>verifyEmail.title</Message>
-          </DialogTitle>
-        </DialogHeader>
-        <Form {...form}>
-          <form
-            onSubmit={(e) => {
-              e.stopPropagation();
-              form.handleSubmit(onSubmit)(e);
-            }}
-            id="verify-email-form"
-          >
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field, fieldState: { error } }) => (
-                <FormItem>
-                  <FormLabel>email</FormLabel>
-                  <FormControl>
-                    <Input {...field} error={error} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
-        <DialogFooter>
-          <Button
-            type="submit"
-            disabled={isPending}
-            isLoading={isPending}
-            form="verify-email-form"
-          >
-            <Check
-              className={`w-4 h-4 ${isSuccess ? "block" : "hidden"} mr-2`}
-            />
-            <Message exactly>Common.submit</Message>
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
   );
 };
 

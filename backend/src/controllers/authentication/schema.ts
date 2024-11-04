@@ -29,12 +29,6 @@ export const LoginUserSchema = z.object({
   }),
 });
 
-export const VerifyEmailSchema = z.object({
-  body: z.object({
-    token: z.string().min(1).max(300),
-  }),
-});
-
 export const SendVerificationEmailSchema = z.object({
   body: z.object({
     email: z.string().email().min(1).max(150),
@@ -43,7 +37,6 @@ export const SendVerificationEmailSchema = z.object({
 
 export type TRegisterUser = z.infer<typeof RegisterUserSchema>["body"];
 export type TLoginUser = z.infer<typeof LoginUserSchema>["body"];
-export type TVerifyEmail = z.infer<typeof VerifyEmailSchema>["body"];
 export type TSendVerificationEmail = z.infer<
   typeof SendVerificationEmailSchema
 >["body"];

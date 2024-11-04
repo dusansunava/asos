@@ -1,7 +1,6 @@
 import {
   TRegisterUser,
   TLoginUser,
-  TVerifyEmail,
   TSendVerificationEmail,
 } from "@/controllers/authentication/schema";
 import { db } from "@/db/connection";
@@ -62,13 +61,6 @@ export const registerUser = async (
       }
     );
 
-    CreateVerificationEmail(
-      language,
-      request.username,
-      verifyToken,
-      request.email
-    );
-
     return {
       success: true,
       data: { username: newUser.username, email: newUser.email },
@@ -93,10 +85,6 @@ export const loginUser = async (request: TLoginUser) => {
 
     if (!passwordsMatching) {
       return { success: false, error: { credentials: "not_matching" } };
-    }
-
-    if (!existingUser.verifiedAt) {
-      return { success: false, error: { email: "not_verified" } };
     }
 
     const accessToken = jwt.sign(
@@ -185,62 +173,6 @@ export const logoutUser = async (request: Request) => {
     });
     return { success: true, clearCookie: true };
   } catch (err) {
-    return { success: false, error: { server: err } };
-  }
-};
-
-export const sendUserVerificationEmail = async (
-  request: TSendVerificationEmail,
-  language: string
-) => {
-  try {
-    const user = await getUserByEmail(request.email);
-    if (!user || user.verifiedAt) {
-      return { success: true };
-    }
-
-    const verifyToken = jwt.sign(
-      { email: request.email },
-      process.env.ACCESS_JWT_SECRET,
-      {
-        expiresIn: VERIFY_TOKEN_EXPIRATION,
-      }
-    );
-
-    CreateVerificationEmail(language, user.username, verifyToken, user.email);
-    return { success: true };
-  } catch (err) {
-    return { success: false };
-  }
-};
-
-export const verifyUserEmail = async (request: TVerifyEmail) => {
-  try {
-    const decoded: EmailJwtPayload = jwt.verify(
-      request.token,
-      process.env.ACCESS_JWT_SECRET
-    );
-    const user = await getUserByEmail(decoded.email as string);
-
-    if (!user) {
-      return { success: false, error: { user: "user_not_found" } };
-    }
-
-    await db.user.update({
-      where: {
-        email: decoded.email,
-      },
-      data: {
-        verifiedAt: new Date(),
-      },
-    });
-    return { success: true };
-  } catch (err) {
-    if (err instanceof TokenExpiredError) {
-      return { success: false, error: { verifyToken: "token_expired" } };
-    } else if (err instanceof JsonWebTokenError) {
-      return { success: false, error: { verifyToken: "invalid_token" } };
-    }
     return { success: false, error: { server: err } };
   }
 };

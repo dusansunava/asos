@@ -3,9 +3,7 @@ import {
   registerUser,
   loginUser,
   refreshUserSession,
-  logoutUser,
-  sendUserVerificationEmail,
-  verifyUserEmail,
+  logoutUser
 } from "@/services/authentication/service";
 
 export const register = async (req: Request, res: Response) => {
@@ -61,27 +59,4 @@ export const logout = async (req: Request, res: Response) => {
     return res.sendStatus(200);
   }
   return res.status(500).send(result.error);
-};
-
-export const sendVerificationEmail = async (req: Request, res: Response) => {
-  const result = await sendUserVerificationEmail(req.body, req.language);
-  if (result?.success === true) {
-    return res.sendStatus(200);
-  }
-  return res.sendStatus(500);
-};
-
-export const verifyEmail = async (req: Request, res: Response) => {
-  const result = await verifyUserEmail(req.body);
-
-  if (result.success) {
-    return res.sendStatus(200);
-  } else if (result.error?.server) {
-    return res.status(500).send(result.error);
-  } else if (result.error?.user === "user_not_found") {
-    return res.sendStatus(404);
-  } else if (result.error?.verifyToken === "invalid_token") {
-    return res.status(401).send({ verifyToken: "invalid_token" });
-  }
-  return res.status(401).send({ verifyToken: "token_expired" });
 };
