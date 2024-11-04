@@ -6,12 +6,12 @@
 
 2. Build Dockerfile.dev-db image (fill the build args with .env.local variables):
 ```
-docker build -t trading-simulator-db -f Dockerfile.dev-db . --build-arg DB_USER=db-user --build-arg DB_PASSWORD=root --build-arg DB_NAME=trading-simulator-db --build-arg DB_PORT=5432
+docker build -t yum-lab-db -f Dockerfile.dev-db . --build-arg DB_USER=db-user --build-arg DB_PASSWORD=root --build-arg DB_NAME=yum-lab-db --build-arg DB_PORT=5432
 ```
 
 3. Run the database container and delete container if it already exists:
 ```
-docker rm -f trading-simulator-db; docker run -d -p 5432:5432 --name trading-simulator-db trading-simulator-db
+docker rm -f yum-lab-db; docker run -d -p 5432:5432 --name yum-lab-db yum-lab-db
 ```
 
 5. Navigate to /backend directory
