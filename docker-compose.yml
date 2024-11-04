@@ -1,0 +1,61 @@
+version: "3.8"
+services:
+  postgres:
+    image: "postgres:16-alpine3.17"
+    restart: always
+    expose:
+      - "5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_PORT=${VITE_PORT}
+        - VITE_BASE_URL=${VITE_BASE_URL}
+    restart: always
+    ports:
+      - "${VITE_PORT}:${VITE_PORT}"
+    environment:
+      - VITE_PORT=${VITE_PORT}
+      - VITE_BASE_URL=${VITE_BASE_URL}
+    networks:
+      - default
+    volumes:
+      - fe_npm_cache:/app/node_modules
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "${BE_PORT}:${BE_PORT}"
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME}
+      - SERVER_HOST=${SERVER_HOST}
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASS}@postgres:5432/${DB_NAME}
+      - NODE_ENV=production
+      - ACCESS_JWT_SECRET=${ACCESS_JWT_SECRET}
+      - REFRESH_JWT_SECRET=${REFRESH_JWT_SECRET}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+      - EMAIL_PASS=${EMAIL_PASS}
+      - EMAIL=${EMAIL}
+      - FE_PORT=${FE_PORT}
+      - BE_PORT=${BE_PORT}
+    depends_on:
+      - postgres
+    networks:
+      - default
+
+volumes:
+  pgdata: {}
+  fe_npm_cache: {}

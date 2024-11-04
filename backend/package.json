@@ -1,0 +1,55 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.ts",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "rm -rf ./dist && tsc -p .",
+    "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register ./dist/server.js",
+    "prod": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register ./src/server.ts",
+    "prod:migrate": "prisma migrate deploy && npm run prod",
+    "dev:migrate": "dotenv -e ./../.env.development prisma migrate dev",
+    "prisma:client": "npx prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "prisma": {
+    "schema": "./src/db/schema.prisma"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.8.1",
+    "axios": "^1.6.1",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "dotenv-cli": "^7.3.0",
+    "dotenv-expand": "^10.0.0",
+    "express": "^4.18.2",
+    "intl-messageformat": "^10.5.11",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.8",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/body-parser": "^1.19.5",
+    "@types/compression": "^1.7.5",
+    "@types/cookie-parser": "^1.4.6",
+    "@types/cors": "^2.8.16",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20.9.0",
+    "@types/nodemailer": "^6.4.14",
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.0.1",
+    "prisma": "^5.8.1",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.2.2"
+  }
+}
