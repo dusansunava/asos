@@ -17,6 +17,9 @@ const ExercisePage = lazy(() => import("@/pages/user/exercise/page"));
 const ResetPasswordPage = lazy(
   () => import("@/pages/guest/reset-password/page")
 );
+const CreateFoodPage = lazy(
+  () => import("@/pages/user/food/create/page")
+);
 import { Loader2 } from "lucide-react";
 
 const PageLoader = () => {
@@ -86,6 +89,14 @@ const router = createBrowserRouter(
           element={
             <Suspense fallback={<PageLoader />}>
               <FoodPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/food/create"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <CreateFoodPage />
             </Suspense>
           }
         />

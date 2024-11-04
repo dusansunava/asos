@@ -43,4 +43,16 @@ export const EnvVariablesSchema = z.object({
   }),
 });
 
+export enum ServerError {
+  BAD_REQUEST = "BAD_REQUEST",
+  UNAUTHORIZED = "UNAUTHORIZED",
+  NOT_FOUND = "NOT_FOUND",
+  NOT_UNIQUE = "NOT_UNIQUE",
+  SERVER_ERROR = "SERVER_ERROR",
+  NOT_ENOUGH_MONEY = "NOT_ENOUGH_MONEY",
+  ASSET_NOT_PRESENT = "ASSET_NOT_PRESENT",
+  OUTDATED_DATA = "OUTDATED_DATA",
+  MARKET_CLOSED = "MARKET_CLOSED"
+}
+
 export type EnvVariables = z.infer<typeof EnvVariablesSchema>;

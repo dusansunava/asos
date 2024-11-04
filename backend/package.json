@@ -16,7 +16,8 @@
   "author": "",
   "license": "ISC",
   "prisma": {
-    "schema": "./src/db/schema.prisma"
+    "schema": "./src/db/schema.prisma",
+    "seed": "cross-env NODE_ENV=development node -r tsconfig-paths/register -r ts-node/register ./src/db/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.8.1",
@@ -48,7 +49,7 @@
     "cross-env": "^7.0.3",
     "nodemon": "^3.0.1",
     "prisma": "^5.8.1",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   }

@@ -19,7 +19,7 @@ export type Portfolio = {
     foodItem: string;
     calories: number;
     protein: number;
-    carb: number;
+    carbs: number;
     fat: number;
     date: Date;
     createdAt: Date;
