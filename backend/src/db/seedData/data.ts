@@ -12,7 +12,7 @@ const users = [
   },
   {
     username: "jane_doe",
-    email: "jane@example.com",
+    email: "jane@examplemail.com",
     password: "hashedpassword456",
     salt: "randomsalt2",
     role: "ADMIN",
