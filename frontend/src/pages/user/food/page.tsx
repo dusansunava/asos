@@ -9,12 +9,21 @@ import { Link } from "react-router-dom";
 import FoodLogCard, { LoadingFoodLogCard } from "@/pages/user/food/FoodCard"; // Assuming you have a FoodLogCard component
 import { useLocalStorage } from "@/lib/useLocalStorage";
 import { Food } from "../home/schema";
+import useMutateRequest from "@/lib/fetch/useMutateRequest";
+import { useQueryClient } from "@tanstack/react-query";
 
 const FoodPage = () => {
   const { data, isLoading, isPending } = useQueryRequest<Food[]>({
     url: "/food-logs", // Adjust the endpoint as needed
   });
   const [storedValue, setValue] = useLocalStorage("foodlogs-count", 0);
+  const { mutateAsync } = useMutateRequest({
+    url: `/food`,
+    method: "GET",
+    onSuccess: () => {
+      console.log("mam jedlo")
+    }
+  });
 
   useEffect(() => {
     if (data && !isLoading) {
@@ -31,6 +40,10 @@ const FoodPage = () => {
             <PlusCircle className="mr-2" />
             <Message>create</Message>
           </Link>
+        </Button>
+        <Button onClick={mutateAsync}variant="outline" className="p-0">
+            <PlusCircle className="mr-2" />
+            <Message>get</Message>
         </Button>
       </div>
       <div className="flex flex-wrap gap-6 justify-center items-center">
