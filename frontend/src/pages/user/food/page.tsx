@@ -78,7 +78,7 @@ const FoodPage = () => {
       <PageTitle />
       <div className="mb-6 flex">
         <Button variant="outline" className="p-0">
-          <Link to="/food-logs/create" className="px-4 py-2 flex">
+          <Link to="/food/create" className="px-4 py-2 flex">
             <PlusCircle className="mr-2" />
             <Message>create</Message>
           </Link>

@@ -75,5 +75,6 @@
   "ResetPassword.fail.description": "You can request new requirement in login section.",
   "ResetPassword.success.title": "The password was changed successfully!",
   "ResetPassword.success.description": "You can now log into your account using your new password.",
-  "ResetPassword.login": "Go to login"
+  "ResetPassword.login": "Go to login",
+  "Food.namePlaceholder": "Enter food name"
 }

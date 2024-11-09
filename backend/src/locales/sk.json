@@ -75,5 +75,6 @@
   "ResetPassword.fail.description": "V sekcii prihlásenie môžete poslať novú žiadosť.",
   "ResetPassword.success.title": "Zmena hesla prebehla úspešne!",
   "ResetPassword.success.description": "Teraz sa môžete prihlásiť do svojho konta pomocou nového hesla.",
-  "ResetPassword.login": "Prejsť na prihlásenie"
+  "ResetPassword.login": "Prejsť na prihlásenie",
+  "Food.namePlaceholder": "Zadajte názov"
 }

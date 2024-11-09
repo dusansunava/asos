@@ -52,7 +52,7 @@ async function getAccessToken(): Promise<string> {
 }
 
 // Function to perform a GET request to the FatSecret API
-async function getFoodData(searchExpression: string): Promise<any> {
+export const getFoodData = async (searchExpression: string) => {
   const token = await getAccessToken();
 
   const response = await fatSecretApi.post("", null, {

@@ -1,71 +1,36 @@
+import { SetStateAction, useState } from "react";
 import { BackButton, Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Message, useMessage } from "@/providers/intl/IntlMessage";
+import { Message } from "@/providers/intl/IntlMessage";
 import { IntlMessagePathProvider } from "@/providers/intl/IntlMessagePath";
-import {
-  CreateFoodSchema,
-  CreateFood,
-  ErrorData,
-} from "@/pages/user/food/schema";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
-import useMutateRequest from "@/lib/fetch/useMutateRequest";
-import { AxiosError } from "axios";
 import PageTitle from "@/components/PageTitle";
-import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import useMutateRequest from "@/lib/fetch/useMutateRequest";
 
 const CreateFoodPage = () => {
-  const nameTakenMessage = useMessage({
-    value: "Food.name.alreadyTaken",
-  });
-  const queryClient = useQueryClient();
-
-  const form = useForm<CreateFood>({
-    resolver: zodResolver(CreateFoodSchema),
-    defaultValues: {
-      name: "",
-      value: 0,
-      description: "",
-    },
-  });
-  const { setError, handleSubmit, getValues, watch } = form;
-  const navigate = useNavigate();
-  const [deposit, setDeposit] = useState(0);
+  const [inputValue, setInputValue] = useState("");
 
   const { mutateAsync, isPending } = useMutateRequest({
+    url: `/food/similar`,
     method: "POST",
-    url: "/food",
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["/food"],
-        exact: false
-      });
-      navigate("/food");
-    },
-    onError: (error: AxiosError<any, ErrorData>) => {
-      if (error.response?.status === 400 && error.response.data?.name) {
-        setError("name", { message: nameTakenMessage });
-      }
-    },
+      console.log("mam jedlo")
+    }
   });
 
-  useEffect(() => {
-    setDeposit(getValues("value"));
-  }, [watch("value")]);
+  const handleInputChange = (e: { target: { value: SetStateAction<string>; }; }) => {
+    setInputValue(e.target.value);
+  };
 
-
+  const handleSearch = async () => {
+    try {
+      const response = await mutateAsync({
+        searchExpression: inputValue,
+      });
+      console.log(response);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <IntlMessagePathProvider value="Food" override>
@@ -75,50 +40,16 @@ const CreateFoodPage = () => {
       <div className="text-start">
         <BackButton to="/food" />
       </div>
-      <div className="flex justify-center mt-6">
-        <Form {...form}>
-          <form
-            className="border shadow dark:shadow-lg dark:shadow-card w-[min(500px,100%)] sm:rounded-lg p-6"
-          >
-            <div className="flex flex-col gap-6 pb-6 text-start">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field, fieldState: { error } }) => (
-                  <FormItem>
-                    <FormLabel exactly>Food.name.label</FormLabel>
-                    <FormControl>
-                      <Input {...field} error={error} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="value"
-                render={({ field, fieldState: { error } }) => (
-                  <FormItem>
-                    <FormLabel exactly>Food.value.label</FormLabel>
-                    <FormControl>
-                      <Input type="number" {...field} error={error} />
-                    </FormControl>
-                    <FormMessage />
-                    <FormDescription>
-                      
-                    </FormDescription>
-                  </FormItem>
-                )}
-              />
-              
-            </div>
-            <div className="w-full text-end">
-              <Button isLoading={isPending} disabled={isPending} type="submit">
-                <Message>button.create</Message>
-              </Button>
-            </div>
-          </form>
-        </Form>
+      <div className="flex justify-center mt-6 gap-x-6">
+        <Input
+          type="text"
+          placeholder="namePlaceholder"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+        <Button onClick={handleSearch} isLoading={isPending} disabled={isPending}>
+          <Message>button.create</Message>
+        </Button>
       </div>
     </IntlMessagePathProvider>
   );
