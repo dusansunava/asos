@@ -17,6 +17,7 @@ import { MousePointerClick, PlusCircle } from "lucide-react";
 
 const HomePage = () => {
 
+  /*
   const { isLoading: loadingPortfolios, data: portfolios } = useQuery<Portfolio[]>({
     queryFn: async () => {
       const { data } = await apiService.get('/portfolios');
@@ -26,6 +27,7 @@ const HomePage = () => {
     retry: false,
     queryKey: ['portfolios'],
   });
+  */
 
   const colors = ["#0000ff", "#4cac10", "#1aaf99", "#1aa0ff"];
 
@@ -53,15 +55,8 @@ const HomePage = () => {
           <div className="text-left m-2">
             <Message>overview</Message>
             <div className="flex flex-wrap -mx-2">
-              {loadingPortfolios ? (
-                <Loader />
-              ) : (
-                portfolios?.slice(0, 3).map((portfolio, index) => (
-                  <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 px-2 mb-4">
-                    <Tab name={portfolio.name} value={portfolio.value} backgroundColor={colors[index]} />
-                  </div>
-                ))
-              )}
+              
+              
             </div>
           </div>
           <Separator className="my-4" />

@@ -41,6 +41,12 @@ export const EnvVariablesSchema = z.object({
   FE_PORT: z.string({
     required_error: "add FE_PORT to env.local file like in env.example",
   }),
+  FATSECRET_CLIENT_ID: z.string({
+    required_error: "add FATSECRET_CLIENT_ID to env.local file like in env.example",
+  }),
+  FATSECRET_CLIENT_SECRET: z.string({
+    required_error: "add FATSECRET_CLIENT_SECRET to env.local file like in env.example",
+  }),
 });
 
 export enum ServerError {
