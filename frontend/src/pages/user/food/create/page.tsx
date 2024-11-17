@@ -10,7 +10,7 @@ const CreateFoodPage = () => {
   const [inputValue, setInputValue] = useState("");
 
   const { mutateAsync, isPending } = useMutateRequest({
-    url: `/food/similar`,
+    url: `/spoonacular/foodSuggestion`,
     method: "POST",
     onSuccess: () => {
       console.log("mam jedlo")

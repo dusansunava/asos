@@ -3,6 +3,7 @@ import {
   getUserFoodsService,
 } from "@/services/food/service";
 import { getFoodData } from "@/services/api/fatsecretPlatform";
+import { getSuggestion, getFoodInfo } from "@/services/api/spoonacular";
 
 export const getUserFoods = async (req: Request, res: Response) => {
   const userId = req.jwtPayload?.id;
@@ -32,3 +33,31 @@ export const getSimilarFoods = async (req: Request, res: Response) => {
   }
   return res.status(500).send(result.error?.message);
 };
+
+export const getSuggestionRequest = async(req: Request, res: Response) => {
+  const userId = req.jwtPayload?.id;
+  const searchExpression = req.body.searchExpression;
+  if (!userId){
+    return res.status(500).send("user ID undefined")
+  }
+
+  const result = await getSuggestion(searchExpression);
+  if (result.success) {
+    return res.status(200).send(result.data);
+  }
+  return res.status(500).send(result.error?.message);
+}
+
+export const getFoodInfoRequest = async(req: Request, res: Response) => {
+  const userId = req.jwtPayload?.id;
+  const id = req.body.searchExpression;
+  if (!userId){
+    return res.status(500).send("user ID undefined")
+  }
+
+  const result = await getFoodInfo(id);
+  if (result.success) {
+    return res.status(200).send(result.data);
+  }
+  return res.status(500).send(result.error?.message);
+}
