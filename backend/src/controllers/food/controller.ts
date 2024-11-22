@@ -42,10 +42,10 @@ export const getSuggestionRequest = async(req: Request, res: Response) => {
   }
 
   const result = await getSuggestion(searchExpression);
-  if (result.success) {
+  if (result.status == 200) {
     return res.status(200).send(result.data);
   }
-  return res.status(500).send(result.error?.message);
+  return res.status(500).send(result.statusText);
 }
 
 export const getFoodInfoRequest = async(req: Request, res: Response) => {
@@ -56,8 +56,8 @@ export const getFoodInfoRequest = async(req: Request, res: Response) => {
   }
 
   const result = await getFoodInfo(id);
-  if (result.success) {
+  if (result.status == 200) {
     return res.status(200).send(result.data);
   }
-  return res.status(500).send(result.error?.message);
+  return res.status(500).send(result.statusText);
 }
