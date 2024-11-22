@@ -5,16 +5,16 @@ import { Message } from "@/providers/intl/IntlMessage";
 import { IntlMessagePathProvider } from "@/providers/intl/IntlMessagePath";
 import PageTitle from "@/components/PageTitle";
 import useMutateRequest from "@/lib/fetch/useMutateRequest";
+import FoodSuggestionCard from "./FoodSuggestionCard";
+import { FoodSuggestion, FoodSuggestionResponse } from "../schema";
 
 const CreateFoodPage = () => {
   const [inputValue, setInputValue] = useState("");
+  const [foodSuggestions, setFoodSuggestions] = useState<FoodSuggestion[]>([]);
 
-  const { mutateAsync, isPending } = useMutateRequest({
+  const { mutateAsync, isPending } = useMutateRequest<FoodSuggestionResponse>({
     url: `/spoonacular/foodSuggestion`,
     method: "POST",
-    onSuccess: () => {
-      console.log("mam jedlo")
-    }
   });
 
   const handleInputChange = (e: { target: { value: SetStateAction<string>; }; }) => {
@@ -26,7 +26,7 @@ const CreateFoodPage = () => {
       const response = await mutateAsync({
         searchExpression: inputValue,
       });
-      console.log(response);
+      setFoodSuggestions(response.results);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -48,8 +48,22 @@ const CreateFoodPage = () => {
           onChange={handleInputChange}
         />
         <Button onClick={handleSearch} isLoading={isPending} disabled={isPending}>
-          <Message>button.create</Message>
+          <Message>button.search</Message>
         </Button>
+      </div>
+
+      <div className="mt-8">
+        {foodSuggestions.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {foodSuggestions.map((food) => (
+              <FoodSuggestionCard key={food.id} foodSuggestion={food} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center mt-4">
+            <Message>noResults</Message>
+          </p>
+        )}
       </div>
     </IntlMessagePathProvider>
   );

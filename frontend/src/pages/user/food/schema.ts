@@ -21,3 +21,15 @@ export type ErrorData = {
   name?: string[];
   value?: number[];
 };
+
+export type FoodSuggestion = {
+  id: number;
+  name: string;
+}
+
+export type FoodSuggestionResponse = {
+  results: FoodSuggestion[];
+  offset: number;
+  number: number;
+  totalResults: number;
+};
