@@ -84,7 +84,6 @@ export const getFoodInfoRequest = async (req: Request, res: Response) => {
     if (result.status === 200) {
       const foodData = result.data;
 
-      // Extract relevant nutrients
       const relevantNutrients: Nutrients = {};
       const nutrientKeys = ["Calories", "Protein", "Carbohydrates", "Fat"];
 
@@ -93,7 +92,6 @@ export const getFoodInfoRequest = async (req: Request, res: Response) => {
         relevantNutrients[key.toLowerCase()] = nutrient ? nutrient.amount : null;
       });
 
-      // Simplified response
       const simplifiedResponse = {
         name: foodData.name,
         amount: foodData.amount,

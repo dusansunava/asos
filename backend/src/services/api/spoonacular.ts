@@ -20,7 +20,6 @@ function getRequest(url: string) {
 export const getSuggestion = async (query: string) => {
   try {
     const response = await getRequest(`/food/ingredients/search?query=${encodeURIComponent(query)}&number=10`);
-    console.log("Suggestions:", response.data.results);
     return response; 
   } catch (error) {
     console.error("Error fetching suggestions:", error);
@@ -31,7 +30,6 @@ export const getSuggestion = async (query: string) => {
 export const getFoodInfo = async (id: number) => {
   try {
     const response = await getRequest(`/food/ingredients/${id}/information?amount=100&unit=grams`);
-    console.log("Info:", response.data);
     return response; 
   } catch (error) {
     console.error("Error fetching suggestions:", error);
