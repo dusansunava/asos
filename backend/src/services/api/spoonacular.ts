@@ -30,8 +30,8 @@ export const getSuggestion = async (query: string) => {
 
 export const getFoodInfo = async (id: number) => {
   try {
-    const response = await getRequest(`/food/ingredients/${id}`);
-    console.log("Info:", response.data.results);
+    const response = await getRequest(`/food/ingredients/${id}/information?amount=100&unit=grams`);
+    console.log("Info:", response.data);
     return response; 
   } catch (error) {
     console.error("Error fetching suggestions:", error);

@@ -5,11 +5,12 @@ import {
 import { getFoodData } from "@/services/api/fatsecretPlatform";
 import { getSuggestion, getFoodInfo } from "@/services/api/spoonacular";
 import food from "@/routes/food";
+import { Nutrients } from "./schema";
 
 export const getUserFoods = async (req: Request, res: Response) => {
   const userId = req.jwtPayload?.id;
 
-  if (!userId){
+  if (!userId) {
     return res.status(500).send("user ID undefined")
   }
 
@@ -24,11 +25,11 @@ export const postUserFood = async (req: Request, res: Response) => {
   const userId = req.jwtPayload?.id;
   const foodInfo = req.body;
 
-  if (!userId){
+  if (!userId) {
     return res.status(500).send("user ID undefined")
   }
 
-  if (!foodInfo){
+  if (!foodInfo) {
     return res.status(500).send("no food info")
   }
 
@@ -45,7 +46,7 @@ export const getSimilarFoods = async (req: Request, res: Response) => {
   const userId = req.jwtPayload?.id;
   const searchExpression = req.body.searchExpression;
 
-  if (!userId){
+  if (!userId) {
     return res.status(500).send("user ID undefined")
   }
 
@@ -56,10 +57,10 @@ export const getSimilarFoods = async (req: Request, res: Response) => {
   return res.status(500).send(result.error?.message);
 };
 
-export const getSuggestionRequest = async(req: Request, res: Response) => {
+export const getSuggestionRequest = async (req: Request, res: Response) => {
   const userId = req.jwtPayload?.id;
   const searchExpression = req.body.searchExpression;
-  if (!userId){
+  if (!userId) {
     return res.status(500).send("user ID undefined")
   }
 
@@ -70,16 +71,42 @@ export const getSuggestionRequest = async(req: Request, res: Response) => {
   return res.status(500).send(result.statusText);
 }
 
-export const getFoodInfoRequest = async(req: Request, res: Response) => {
-  const userId = req.jwtPayload?.id;
-  const id = req.body.searchExpression;
-  if (!userId){
-    return res.status(500).send("user ID undefined")
+export const getFoodInfoRequest = async (req: Request, res: Response) => {
+  const id = req.body.id;
+
+  if (!id) {
+    return res.status(400).send("Food ID is required");
   }
 
-  const result = await getFoodInfo(id);
-  if (result.status == 200) {
-    return res.status(200).send(result.data);
+  try {
+    const result = await getFoodInfo(id);
+
+    if (result.status === 200) {
+      const foodData = result.data;
+
+      // Extract relevant nutrients
+      const relevantNutrients: Nutrients = {};
+      const nutrientKeys = ["Calories", "Protein", "Carbohydrates", "Fat"];
+
+      nutrientKeys.forEach((key) => {
+        const nutrient = foodData.nutrition.nutrients.find((n: { name: string; }) => n.name === key);
+        relevantNutrients[key.toLowerCase()] = nutrient ? nutrient.amount : null;
+      });
+
+      // Simplified response
+      const simplifiedResponse = {
+        name: foodData.name,
+        amount: foodData.amount,
+        unit: foodData.unit,
+        nutrients: relevantNutrients,
+      };
+
+      return res.status(200).json(simplifiedResponse);
+    }
+
+    return res.status(result.status).send(result.statusText);
+  } catch (error) {
+    console.error("Error fetching food information:", error);
+    return res.status(500).send("Failed to fetch food information.");
   }
-  return res.status(500).send(result.statusText);
-}
+};

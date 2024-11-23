@@ -36,3 +36,6 @@ export const FoodLogByUserIdSchema = z.object({
 export type CreateFoodLog = z.infer<typeof CreateFoodLogSchema>["body"];
 export type UpdateFoodLog = z.infer<typeof UpdateFoodLogSchema>["body"];
 export type FoodLogByUserId = z.infer<typeof FoodLogByUserIdSchema>["params"];
+export type Nutrients = {
+  [key: string]: number | null;
+};

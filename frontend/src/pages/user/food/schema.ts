@@ -33,3 +33,15 @@ export type FoodSuggestionResponse = {
   number: number;
   totalResults: number;
 };
+
+export type FoodNutrients = {
+  name: string;
+  amount: number;
+  unit: string;
+  nutrients: {
+    calories: number;
+    protein: number;
+    carbohydrates: number;
+    fat: number;
+  };
+};
