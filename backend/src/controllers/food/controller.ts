@@ -95,7 +95,6 @@ export const getFoodInfoRequest = async (req: Request, res: Response) => {
       const simplifiedResponse = {
         name: foodData.name,
         amount: foodData.amount,
-        unit: foodData.unit,
         nutrients: relevantNutrients,
       };
 

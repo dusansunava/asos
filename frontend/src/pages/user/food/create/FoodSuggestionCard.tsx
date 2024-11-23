@@ -80,12 +80,12 @@ const FoodSuggestionCard = ({ foodSuggestion }: { foodSuggestion: FoodSuggestion
                   </div>
                 ) : nutrients ? (
                   <div className="mt-4">
-                    <p className="font-bold">{nutrients.name} (100 {nutrients.unit})</p>
+                    <p className="font-bold">{nutrients.name} (100g)</p>
                     <ul className="text-sm text-gray-600 space-y-1">
-                      <li><strong>Calories:</strong> {nutrients.nutrients.calories} kcal</li>
-                      <li><strong>Protein:</strong> {nutrients.nutrients.protein} g</li>
-                      <li><strong>Carbohydrates:</strong> {nutrients.nutrients.carbohydrates} g</li>
-                      <li><strong>Fat:</strong> {nutrients.nutrients.fat} g</li>
+                      <li><strong><Message>Calories</Message>:</strong> {nutrients.nutrients.calories} kcal</li>
+                      <li><strong><Message>Protein</Message>:</strong> {nutrients.nutrients.protein} g</li>
+                      <li><strong><Message>Carbohydreates</Message>:</strong> {nutrients.nutrients.carbohydrates} g</li>
+                      <li><strong><Message>Fat</Message>:</strong> {nutrients.nutrients.fat} g</li>
                     </ul>
                   </div>
                 ) : (

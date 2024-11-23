@@ -37,7 +37,6 @@ export type FoodSuggestionResponse = {
 export type FoodNutrients = {
   name: string;
   amount: number;
-  unit: string;
   nutrients: {
     calories: number;
     protein: number;
