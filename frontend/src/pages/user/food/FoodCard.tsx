@@ -54,31 +54,31 @@ const onDelete = async () => {
       <CardContent className="text-start space-y-2">
         <div className="flex gap flex-wrap gap-2">
           <p className="text-muted-foreground">
-            <Message>Calories:</Message>
+            <Message>Calories</Message>:
           </p>
           <p>{foodLog.calories}</p>
         </div>
         <div className="flex gap flex-wrap gap-2">
           <p className="text-muted-foreground">
-            <Message>Protein:</Message>
+            <Message>Protein</Message>:
           </p>
           <p>{foodLog.protein}g</p>
         </div>
         <div className="flex gap flex-wrap gap-2">
           <p className="text-muted-foreground">
-            <Message>Carbs:</Message>
+            <Message>Carbs</Message>:
           </p>
           <p>{foodLog.carbs}g</p>
         </div>
         <div className="flex gap flex-wrap gap-2">
           <p className="text-muted-foreground">
-            <Message>Fat:</Message>
+            <Message>Fat</Message>:
           </p>
           <p>{foodLog.fat}g</p>
         </div>
         <div className="flex gap flex-wrap gap-2">
           <p className="text-muted-foreground">
-            <Message>Date:</Message>
+            <Message>Date</Message>:
           </p>
           <p>{new Date(foodLog.date).toLocaleDateString()}</p>
         </div>
@@ -93,10 +93,10 @@ const onDelete = async () => {
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>
-                <Message>Delete Food Log</Message>
+                <Message>deleteFoodLog</Message>
               </AlertDialogTitle>
               <AlertDialogDescription>
-                <Message>Are you sure you want to delete this food log entry?</Message>
+                <Message>uSureBroDelete</Message>
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

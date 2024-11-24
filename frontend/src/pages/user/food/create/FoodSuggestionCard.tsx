@@ -76,7 +76,7 @@ const FoodSuggestionCard = ({ foodSuggestion, onFoodLogged }: { foodSuggestion: 
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>
-                <Message>Specify the amount</Message>
+                <Message>howMuchBro</Message>
               </AlertDialogTitle>
               <AlertDialogDescription>
                 {isLoadingNutrients ? (
@@ -89,7 +89,7 @@ const FoodSuggestionCard = ({ foodSuggestion, onFoodLogged }: { foodSuggestion: 
                     <ul className="text-sm text-gray-600 space-y-1">
                       <li><strong><Message>Calories</Message>:</strong> {nutrients.nutrients.calories} kcal</li>
                       <li><strong><Message>Protein</Message>:</strong> {nutrients.nutrients.protein} g</li>
-                      <li><strong><Message>Carbohydreates</Message>:</strong> {nutrients.nutrients.carbohydrates} g</li>
+                      <li><strong><Message>Carbohydrates</Message>:</strong> {nutrients.nutrients.carbohydrates} g</li>
                       <li><strong><Message>Fat</Message>:</strong> {nutrients.nutrients.fat} g</li>
                     </ul>
                   </div>
@@ -99,7 +99,7 @@ const FoodSuggestionCard = ({ foodSuggestion, onFoodLogged }: { foodSuggestion: 
                 <div className="mt-4">
                   <Input
                     type="number"
-                    placeholder="Amount (grams)"
+                    placeholder="amount"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     min="1"
@@ -120,7 +120,7 @@ const FoodSuggestionCard = ({ foodSuggestion, onFoodLogged }: { foodSuggestion: 
                   {isLogging ? (
                     <Loader2 className="animate-spin" />
                   ) : (
-                    <Message>Log Food</Message>
+                    <Message>logFood</Message>
                   )}
                 </Button>
               </AlertDialogAction>

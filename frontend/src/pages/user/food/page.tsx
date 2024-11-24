@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import FoodLogCard, { LoadingFoodLogCard } from "@/pages/user/food/FoodCard";
 import { useLocalStorage } from "@/lib/useLocalStorage";
 import { Food } from "../home/schema";
-import useMutateRequest from "@/lib/fetch/useMutateRequest";
 import useQueryRequest from "@/lib/fetch/useQueryRequest";
 
 const FoodPage = () => {
@@ -18,13 +17,6 @@ const FoodPage = () => {
   const [storedValue, setValue] = useLocalStorage("foodlogs-count", 0);
   
   const [food, setFood] = useState<Food[]>();
-  const { mutateAsync } = useMutateRequest({
-    url: `/food`,
-    method: "GET",
-    onSuccess: () => {
-      console.log("mam jedlo")
-    }
-  });
 
   useEffect(() => {
     if (data && !isLoading) {
@@ -42,10 +34,6 @@ const FoodPage = () => {
             <PlusCircle className="mr-2" />
             <Message>create</Message>
           </Link>
-        </Button>
-        <Button onClick={mutateAsync}variant="outline" className="p-0">
-            <PlusCircle className="mr-2" />
-            <Message>get</Message>
         </Button>
       </div>
       <div className="flex flex-wrap gap-6 justify-center items-center">
