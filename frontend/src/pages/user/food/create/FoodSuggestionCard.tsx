@@ -25,7 +25,7 @@ import { FoodNutrients, FoodSuggestion } from "../schema";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
-const FoodSuggestionCard = ({ foodSuggestion }: { foodSuggestion: FoodSuggestion }) => {
+const FoodSuggestionCard = ({ foodSuggestion, onFoodLogged }: { foodSuggestion: FoodSuggestion; onFoodLogged: () => void }) => {
   const [amount, setAmount] = useState("");
   const [nutrients, setNutrients] = useState<FoodNutrients | null>(null);
   const [isLoadingNutrients, setIsLoadingNutrients] = useState(false);
@@ -53,7 +53,12 @@ const FoodSuggestionCard = ({ foodSuggestion }: { foodSuggestion: FoodSuggestion
   };
 
   const handleLogFood = async () => {
-    await postFoodLog({ id: foodSuggestion.id, amount });
+    try {
+      await postFoodLog({ id: foodSuggestion.id, amount: parseInt(amount, 10), foodInfo: nutrients });
+      onFoodLogged();
+    } catch (error) {
+      console.error("Failed to log food:", error);
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   getUserFoodsService,
+  postUserFoodService,
 } from "@/services/food/service";
 import { getFoodData } from "@/services/api/fatsecretPlatform";
 import { getSuggestion, getFoodInfo } from "@/services/api/spoonacular";
@@ -33,13 +34,14 @@ export const postUserFood = async (req: Request, res: Response) => {
     return res.status(500).send("no food info")
   }
 
-  console.log(foodInfo)
-
-  // const result = await getUserFoodsService(userId);
-  // if (result.success) {
-  //   return res.status(200).send(result.data);
-  // }
-  // return res.status(500).send(result.error?.message);
+  try{
+    const newFoodLog = await postUserFoodService(userId, foodInfo);
+    console.log(newFoodLog)
+    return res.status(200).send(newFoodLog)
+  } catch (error){
+    console.log(error)
+    return res.status(500).send(error)
+  }
 };
 
 export const getSimilarFoods = async (req: Request, res: Response) => {

@@ -32,6 +32,11 @@ const CreateFoodPage = () => {
     }
   };
 
+  const handleFoodLogged = () => {
+    console.log("Food log successfully completed and dialog closed.");
+    // Additional logic, if needed
+  };
+
   return (
     <IntlMessagePathProvider value="Food" override>
       <PageTitle>
@@ -56,7 +61,7 @@ const CreateFoodPage = () => {
         {foodSuggestions.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {foodSuggestions.map((food) => (
-              <FoodSuggestionCard key={food.id} foodSuggestion={food} />
+              <FoodSuggestionCard key={food.id} foodSuggestion={food} onFoodLogged={handleFoodLogged}/>
             ))}
           </div>
         ) : (

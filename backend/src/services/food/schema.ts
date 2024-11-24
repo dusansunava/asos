@@ -20,4 +20,19 @@ export type FoodLogHistoryRow = {
   date: Date;
 };
 
+export type NewFoodLogInfo = {
+  id: number;
+  amount: number;
+  foodInfo: {
+    name: string;
+    amount: number;
+    nutrients: {
+      calories: number;
+      protein: number;
+      carbohydrates: number;
+      fat: number;
+    };
+  };
+};
+
 export type FoodLogHistoryArray = FoodLogHistoryRow[];

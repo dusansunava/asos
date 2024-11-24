@@ -1,5 +1,6 @@
 import { Request } from "express";
 import foodLogRepository from "@/repositories/foodLog";
+import { NewFoodLogInfo } from "./schema";
 
 export const getUserFoodsService = async (userId: string) => {
   try {
@@ -17,4 +18,14 @@ export const getUserFoodsService = async (userId: string) => {
       },
     };
   }
+};
+
+export const postUserFoodService = async (userId: string, food: NewFoodLogInfo) => {
+  if (!userId || !food) {
+      throw new Error("User ID and food details are required");
+  }
+
+  const newFoodLog = await foodLogRepository.createFoodLog(userId, food);
+
+  return newFoodLog;
 };

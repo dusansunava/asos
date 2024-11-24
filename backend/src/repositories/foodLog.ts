@@ -1,4 +1,5 @@
 import { db } from "@/db/connection";
+import { NewFoodLogInfo } from "@/services/food/schema";
 
 const getFoodLogById = async (id: string) => {
     return db.foodLog.findUnique({
@@ -44,9 +45,25 @@ const updateFoodLogValue = async (id: string, data: any) => {
     });
 };
 
+const createFoodLog = async (userId: string, food: NewFoodLogInfo) => {
+    console.log(food.foodInfo)
+    return db.foodLog.create({
+        data: {
+            user_id: userId,
+            foodItem: food.foodInfo.name,
+            calories: food.foodInfo.nutrients.calories,
+            protein: food.foodInfo.nutrients.protein,
+            carbs: food.foodInfo.nutrients.carbohydrates,
+            fat: food.foodInfo.nutrients.fat,
+            date: new Date(),
+        },
+    });
+};
+
 export default {
     updateFoodLogValue,
     getFoodLogById,
     getFoodByUser,
     getFoodLogCalories,
+    createFoodLog,
 };

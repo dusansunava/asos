@@ -19,7 +19,7 @@ function getRequest(url: string) {
 
 export const getSuggestion = async (query: string) => {
   try {
-    const response = await getRequest(`/food/ingredients/search?query=${encodeURIComponent(query)}&number=10`);
+    const response = await getRequest(`/food/ingredients/search?query=${encodeURIComponent(query)}&number=12`);
     return response; 
   } catch (error) {
     console.error("Error fetching suggestions:", error);
