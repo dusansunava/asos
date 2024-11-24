@@ -60,10 +60,17 @@ const createFoodLog = async (userId: string, food: NewFoodLogInfo) => {
     });
 };
 
+const deleteFoodLogDb = async (foodLogId: string) => {
+    return db.foodLog.delete({
+        where: { id: foodLogId },
+    });
+}
+
 export default {
     updateFoodLogValue,
     getFoodLogById,
     getFoodByUser,
     getFoodLogCalories,
     createFoodLog,
+    deleteFoodLogDb,
 };

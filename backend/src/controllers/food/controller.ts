@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  deleteFoodLogService,
   getUserFoodsService,
   postUserFoodService,
 } from "@/services/food/service";
@@ -107,5 +108,24 @@ export const getFoodInfoRequest = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error fetching food information:", error);
     return res.status(500).send("Failed to fetch food information.");
+  }
+};
+
+export const deleteFoodLog = async (req: Request, res: Response) => {
+  const foodLogId = req.params.id;
+
+  console.log(req.body)
+
+  if (!foodLogId) {
+    return res.status(500).send("no food log id")
+  }
+
+  try{
+    const newFoodLog = await deleteFoodLogService(foodLogId);
+    console.log(newFoodLog)
+    return res.status(200).send(newFoodLog)
+  } catch (error){
+    console.log(error)
+    return res.status(500).send(error)
   }
 };

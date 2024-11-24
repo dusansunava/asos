@@ -20,28 +20,31 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Food } from "@/pages/user/home/schema"; // Adjust the import based on your schema location
-import { useQueryClient } from "@tanstack/react-query";
+import { Food } from "@/pages/user/home/schema";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useQueryClient } from "@tanstack/react-query";
 
 const FoodCard = ({ foodLog }: { foodLog: Food }) => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync: deleteFoodLog, isPending: isDeleting } =
-    useMutateRequest({
-      method: "DELETE",
-      url: `/food-logs/${foodLog.id}`, // Adjust the endpoint as needed
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["/food-logs"],
-          exact: true,
-        });
-      },
-    });
+  const { mutateAsync: deleteFoodLog, isPending: isDeleting } = useMutateRequest({
+    method: "DELETE",
+    url: `/food/${foodLog.id}`,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["/food"],
+        exact: true,
+      });
+    },
+});
 
-  const onDelete = async () => {
-    await deleteFoodLog({});
-  };
+const onDelete = async () => {
+    try {
+        await deleteFoodLog({});
+    } catch (error) {
+        console.error("Failed to delete food log:", error);
+    }
+};
 
   return (
     <Card className="sm:w-[min(400px,100%)] w-full">

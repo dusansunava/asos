@@ -1,4 +1,3 @@
-import { Request } from "express";
 import foodLogRepository from "@/repositories/foodLog";
 import { NewFoodLogInfo } from "./schema";
 
@@ -26,6 +25,16 @@ export const postUserFoodService = async (userId: string, food: NewFoodLogInfo) 
   }
 
   const newFoodLog = await foodLogRepository.createFoodLog(userId, food);
+
+  return newFoodLog;
+};
+
+export const deleteFoodLogService = async (foodLogId: string) => {
+  if (!foodLogId) {
+      throw new Error("User ID and food log ID are required");
+  }
+
+  const newFoodLog = await foodLogRepository.deleteFoodLogDb(foodLogId);
 
   return newFoodLog;
 };
