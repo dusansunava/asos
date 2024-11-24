@@ -80,6 +80,7 @@
   "ResetPassword.login": "Prejsť na prihlásenie",
   "Food.namePlaceholder": "Zadajte názov (anglicky)",
   "FoodLogs.create": "Pridať jedlo",
+  "FoodLogs.noData": "Žiadne záznamy na zobrazenie",
   "FoodLogs.Calories": "Kalórie",
   "FoodLogs.Protein": "Bielkoviny",
   "FoodLogs.Carbs": "Sacharidy",

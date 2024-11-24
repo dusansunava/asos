@@ -80,6 +80,7 @@
   "ResetPassword.login": "Go to login",
   "Food.namePlaceholder": "Enter food name",
   "FoodLogs.create": "Add food",
+  "FoodLogs.noData": "No food logs to display",
   "FoodLogs.Calories": "Calories",
   "FoodLogs.Protein": "Protein",
   "FoodLogs.Carbs": "Carbs",
