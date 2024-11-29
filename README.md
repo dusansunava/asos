@@ -1,16 +1,20 @@
-# Project Repository: Cryptocurrency and Stock Trading Simulator
+# Project Repository: Fitness Application for ASOS
 
 
 ## Overview
-Welcome to our team's repository for the Team Project 1 (TP1) course. This repository serves as the central hub for our collaborative work on a cryptocurrency and stock trading simulator application.
+Welcome to our repository for the ASOS (Architecture of software systems) lecture project. This repository serves as the central hub for our collaborative work on a Fitness application.
 
 
 ## Project Description
-Our project focuses on creating a simulator for cryptocurrency and stock trading. The simulator will allow users to engage in virtual trading activities, gaining hands-on experience without risking real capital. It aims to provide a realistic trading environment, enabling users to make informed decisions, manage their portfolios, and learn more about the world of trading.
+Our project is a fitness application designed to help users maintain a healthy lifestyle. The application includes features for tracking exercises, managing personal measurements, and discovering nutritious recipes. It aims to provide an engaging and user-friendly platform for fitness enthusiasts.
 
 
 ## Key Features
-TODO
+Exercises: Track your workouts and explore exercise plans designed to meet your fitness goals.
+
+Profile with Measurements: Keep track of your personal fitness journey by logging body measurements, progress photos, and fitness goals.
+
+Food & Recipes: Discover and manage healthy recipes that support your diet and nutritional needs.
 
 
 ## Getting Started With Project
