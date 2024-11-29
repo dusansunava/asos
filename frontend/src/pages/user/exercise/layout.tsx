@@ -1,9 +1,10 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { Message } from "@/providers/intl/IntlMessage";
 import { IntlMessagePathProvider } from "@/providers/intl/IntlMessagePath";
 import PageTitle from "@/components/PageTitle";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ExercisesLayout = () => {
   return (
@@ -23,3 +24,29 @@ const ExercisesLayout = () => {
 };
 
 export default ExercisesLayout;
+
+export const ExercisesTabs = () => {
+  const location = useLocation();
+
+  return (
+    <Tabs
+      defaultValue={
+        location.pathname.includes("owned") ? "owned" :
+        "all"
+      }
+    >
+      <TabsList>
+        <TabsTrigger value="owned" className="p-0">
+          <Link to="/exercises/owned" className="px-3 py-[6px]">
+            <Message exactly>Exercise.owned</Message>
+          </Link>
+        </TabsTrigger>
+        <TabsTrigger value="all" className="p-0">
+          <Link to="/exercises/all" className="px-3 py-[6px]">
+            <Message exactly>Exercise.all</Message>
+          </Link>
+        </TabsTrigger>
+      </TabsList>
+    </Tabs>
+  );
+};

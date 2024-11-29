@@ -45,7 +45,7 @@ const MenuContent = () => {
           <FolderOpen className="mr-3 h-6 w-6" />
           <Message>food</Message>
         </MenuNavItem>
-        <MenuNavItem to="/exercises">
+        <MenuNavItem to="/exercises/owned">
           <Bike className="mr-3 h-6 w-6" />
           <Message>exerciseList</Message>
         </MenuNavItem>

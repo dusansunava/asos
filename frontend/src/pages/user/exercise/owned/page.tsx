@@ -3,20 +3,18 @@ import {
   exerciseColumns,
   exerciseFilters,
 } from "@/pages/user/exercise/columns-filters";
-import ExercisesLayout from "../layout";
+import { ExercisesTabs } from "../layout";
 
-const ExerciseListPage = () => {
+const OwnedExercisesPage = () => {
   return (
-    <div>
-    <ExercisesLayout></ExercisesLayout>
     <DataTable
       columns={exerciseColumns}
       filters={exerciseFilters}
-      url="/exercises/table"
+      url="/exercises/owned"
     >
+      <ExercisesTabs></ExercisesTabs>
     </DataTable>
-    </div>
   );
 };
 
-export default ExerciseListPage;
+export default OwnedExercisesPage;

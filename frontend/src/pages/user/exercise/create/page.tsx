@@ -48,7 +48,7 @@ const CreateExercisePage = () => {
     method: "POST",
     url: "/exercises",
     onSuccess: () => {
-      navigate("/exercises")
+      navigate("/exercises/owned")
     },
     onError: (error: AxiosError<any, ErrorData>) => {
       if (error.response?.status === 400 && error.response.data?.name) {
