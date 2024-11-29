@@ -13,7 +13,9 @@ const NotFoundPage = lazy(() => import("@/pages/not-found/page"));
 const HomePage = lazy(() => import("@/pages/user/home/page"));
 const SettingsPage = lazy(() => import("@/pages/user/settings/page"));
 const FoodPage = lazy(() => import("@/pages/user/food/page"));
-const ExercisePage = lazy(() => import("@/pages/user/exercise/page"));
+const CreateExercisePage = lazy(() => import("@/pages/user/exercise/create/page"));
+const OwnedExercisesPage = lazy(() => import("@/pages/user/exercise/owned/page"));
+const AllExercisesPage = lazy(() => import("@/pages/user/exercise/all/page"));
 const ResetPasswordPage = lazy(
   () => import("@/pages/guest/reset-password/page")
 );
@@ -21,6 +23,7 @@ const CreateFoodPage = lazy(
   () => import("@/pages/user/food/create/page")
 );
 import { Loader2 } from "lucide-react";
+import ExercisesLayout from "./pages/user/exercise/layout";
 
 const PageLoader = () => {
   return (
@@ -77,13 +80,31 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="exercise"
+          path="exercise/create"
           element={
             <Suspense fallback={<PageLoader />}>
-              <ExercisePage />
+              <CreateExercisePage />
             </Suspense>
           }
         />
+        <Route path="/exercises" element={<ExercisesLayout />}>
+          <Route
+            path="owned"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <OwnedExercisesPage />
+              </Suspense>
+            }
+          />
+           <Route
+              path="all"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  <AllExercisesPage />
+                </Suspense>
+              }
+            />
+        </Route>
         <Route
           path="food"
           element={

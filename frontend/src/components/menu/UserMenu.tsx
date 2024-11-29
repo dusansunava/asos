@@ -5,9 +5,10 @@ import {
   Home,
   FolderOpen,
   LineChart,
-  Trophy,
+  CalendarPlus,
   Settings,
   Pencil,
+  Bike
 } from "lucide-react";
 import { useAuthContext } from "@/providers/auth";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -44,9 +45,13 @@ const MenuContent = () => {
           <FolderOpen className="mr-3 h-6 w-6" />
           <Message>food</Message>
         </MenuNavItem>
-        <MenuNavItem to="/exercise">
-          <LineChart className="mr-3 h-6 w-6" />
-          <Message>exercise</Message>
+        <MenuNavItem to="/exercises/owned">
+          <Bike className="mr-3 h-6 w-6" />
+          <Message>exerciseList</Message>
+        </MenuNavItem>
+        <MenuNavItem to="/exercise/create">
+          <CalendarPlus className="mr-3 h-6 w-6" />
+          <Message>exerciseAdd</Message>
         </MenuNavItem>
         <MenuNavItem to="/settings">
           <Settings className="mr-3 h-6 w-6" />
