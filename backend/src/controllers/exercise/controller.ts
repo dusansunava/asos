@@ -32,8 +32,19 @@ export const updateExercise = async (req: Request, res: Response) => {
   return res.status(500).send(result.error);
 };
 
-export const getExercisesTable = async (req: Request, res: Response) => {
-  const result = await getExercisesDataTable(req);
+export const getOwnedExercisesTable = async (req: Request, res: Response) => {
+  const result = await getExercisesDataTable(req, "owned");
+  if (result.success) {
+    return res.status(200).send(result.data?.exercises);
+  } else if (
+    !result.success && result.error?.exercises === ServerError.NOT_FOUND) {
+    return res.status(404).send(result.error);
+  }
+  return res.status(500).send(result.error);
+};
+
+export const getAllExercisesTable = async (req: Request, res: Response) => {
+  const result = await getExercisesDataTable(req, "all");
   if (result.success) {
     return res.status(200).send(result.data?.exercises);
   } else if (

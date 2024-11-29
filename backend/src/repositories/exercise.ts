@@ -18,19 +18,29 @@ const getExerciseById = async (id: string) => {
     });
   };
   
-  const getExercisesByPage = async (request: PaginationRequest, userId: string) => {
+  const getExercisesByPage = async (request: PaginationRequest, userId: string, amount: string) => {
     const pageIndex = request.pagination.pageIndex;
     const pageSize = request.pagination.pageSize;
     const sorting = request.sorting[0];
     const searching = request.search as { name: string; };
 
+    let whereClause: any = {};
+
+    if(amount == "owned") {
+      whereClause = {
+        owner_id: userId
+    };
+    }
+
     const paginatedExercises = await db.exercise.findMany({
       where: {
-        name: {
-          contains: searching?.name ? searching.name : "",
-          mode: "insensitive",
-        },
-        owner_id: userId
+        ...whereClause,
+            AND: [{
+              name: {
+                contains: searching?.name ? searching.name : "",
+                mode: "insensitive",
+              },
+          }],
       },
       orderBy: {
         [sorting.id]: sorting.desc ? "desc" : "asc",

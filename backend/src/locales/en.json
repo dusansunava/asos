@@ -68,6 +68,8 @@
   "Exercise.bodyPart.label": "Body part",
   "Exercise.intensity.label": "Intensity",
   "Exercise.button.create": "Create",
+  "Exercise.owned": "Owned",
+  "Exercise.all": "All",
   "Settings.pageTitle": "Settings",
   "ErrorModal.title": "An error occurred!",
   "ErrorModal.description": "You need to log in again.",

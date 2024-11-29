@@ -65,6 +65,8 @@
   "Exercise.create.pageTitle": "Pridať cvik",
   "Exercise.name.label": "Meno",
   "Exercise.type.label": "Typ",
+  "Exercise.owned": "Vlastné",
+  "Exercise.all": "Všetky",
   "Exercise.bodyPart.label": "Ćasť tela",
   "Exercise.intensity.label": "Intenzita",
   "Exercise.button.create": "Vytvoriť",

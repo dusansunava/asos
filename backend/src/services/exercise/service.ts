@@ -89,7 +89,7 @@ export const updateExerciseService = async (req: Request) => {
   }
 };
 
-export const getExercisesDataTable = async (req: Request) => {
+export const getExercisesDataTable = async (req: Request, amount: string) => {
   try {
     var pagRequest: PaginationRequest = req.body
     var userId = req.jwtPayload?.id;
@@ -98,7 +98,7 @@ export const getExercisesDataTable = async (req: Request) => {
       return { success: false, error: { exercises: ServerError.NOT_FOUND } };
     }
 
-    const exercises = await exerciseRepository.getExercisesByPage(pagRequest, userId);
+    const exercises = await exerciseRepository.getExercisesByPage(pagRequest, userId, amount);
     
     return {
       success: true,
