@@ -17,6 +17,7 @@ model User {
   refreshToken String?
   foodLogs     FoodLog[]
   activityLogs ActivityLog[]
+  exercises    Exercise[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
@@ -47,6 +48,26 @@ model ActivityLog {
   date         DateTime  @default(now())
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
+}
+
+model Exercise {
+  id                 String      @id @default(uuid())
+  name               String      @unique
+  bodyPart           String      
+  type               String      
+  owner              User        @relation(fields: [owner_id], references: [id])
+  owner_id           String      @default(uuid())
+  description        String? 
+  logo               String      
+  intensity          ExerciseIntensity @default(LOW)
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+}
+
+enum ExerciseIntensity {
+  LOW
+  MEDIUM
+  HIGH
 }
 
 enum Role {
