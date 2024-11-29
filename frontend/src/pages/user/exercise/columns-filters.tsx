@@ -1,6 +1,6 @@
 import { DataTableColumnDef } from "@/components/data-table/table";
 import { DataTableFilterDef } from "@/components/data-table/filters";
-import { Exercise } from "@/pages/user/exerciseList/schema";
+import { Exercise } from "@/pages/user/exercise/schema";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
@@ -12,11 +12,11 @@ import {
 } from "@/components/ui/tooltip";
 import { Message } from "@/providers/intl/IntlMessage";
 import { Badge } from "@/components/ui/badge";
-import { ExerciseLogo } from "@/pages/user/exerciseList/ExerciseLogo";
+import { ExerciseLogo } from "@/pages/user/exercise/ExerciseLogo";
 
 export const exerciseColumns: DataTableColumnDef<Exercise>[] = [
   {
-    accessorKey: "icon",
+    accessorKey: "logo",
     messageKey: "Common.logo",
     enableSorting: false,
     cell: ({ row }) => <ExerciseLogo logo={row.original.logo} />,
@@ -24,19 +24,23 @@ export const exerciseColumns: DataTableColumnDef<Exercise>[] = [
   {
     accessorKey: "name",
     messageKey: "Common.name",
+    enableSorting: true,
   },
   {
     accessorKey: "type",
     messageKey: "Common.type",
-    cell: ({ row }) => <Badge>{row.original.type}</Badge>,
+    enableSorting: false,
   },
   {
     accessorKey: "intensity",
-    messageKey: "Common.intesity",
+    messageKey: "Common.intensity",
+    enableSorting: false,
+    cell: ({ row }) => <Badge>{row.original.intensity}</Badge>,
   },
   {
     accessorKey: "bodyPart",
     messageKey: "Common.bodyPart",
+    enableSorting: false,
   },
   {
     accessorKey: "actions",

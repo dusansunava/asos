@@ -136,8 +136,8 @@ export const FilterComponent = ({
 };
 
 export function generateFiltersSchema(filters: DataTableFilterDef[]) {
-  let _object = {};
-  let defaultValue = {};
+  let _object: Record<string, z.ZodTypeAny> = {};
+  let defaultValue: Record<string, any> = {};
 
   for (const filter of filters) {
     switch (filter.type) {
@@ -228,7 +228,7 @@ function handleFilter(
 }
 
 export function getFiltersDefaultValues(filters: DataTableFilterDef[]) {
-  let defaultValues = {};
+  let defaultValues: Record<string, any> = {};
 
   for (const filter of filters) {
     switch (filter.type) {

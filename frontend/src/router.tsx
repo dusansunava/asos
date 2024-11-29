@@ -13,8 +13,8 @@ const NotFoundPage = lazy(() => import("@/pages/not-found/page"));
 const HomePage = lazy(() => import("@/pages/user/home/page"));
 const SettingsPage = lazy(() => import("@/pages/user/settings/page"));
 const FoodPage = lazy(() => import("@/pages/user/food/page"));
-const AddExercisePage = lazy(() => import("@/pages/user/addExercise/page"));
-const ExerciseListPage = lazy(() => import("@/pages/user/exerciseList/page"));
+const CreateExercisePage = lazy(() => import("@/pages/user/exercise/create/page"));
+const ExerciseListPage = lazy(() => import("@/pages/user/exercise/list/page"));
 const ResetPasswordPage = lazy(
   () => import("@/pages/guest/reset-password/page")
 );
@@ -78,15 +78,15 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="add-exercise"
+          path="exercise/create"
           element={
             <Suspense fallback={<PageLoader />}>
-              <AddExercisePage />
+              <CreateExercisePage />
             </Suspense>
           }
         />
         <Route
-        path="exercise-list"
+        path="exercises"
         element={
           <Suspense fallback={<PageLoader />}>
             <ExerciseListPage />

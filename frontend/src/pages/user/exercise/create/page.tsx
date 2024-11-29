@@ -2,7 +2,6 @@ import { BackButton, Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -12,12 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Message, useMessage } from "@/providers/intl/IntlMessage";
 import { IntlMessagePathProvider } from "@/providers/intl/IntlMessagePath";
 import {
-  CreateCompetitionSchema,
-  CreateCompetition,
+  CreateExerciseSchema,
   ErrorData,
-  Competition,
-  CompetitionType
-} from "@/pages/user/competitions/schema";
+  ExerciseItensity,
+  CreateExercise
+} from "@/pages/user/exercise/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
@@ -25,45 +23,32 @@ import useMutateRequest from "@/lib/fetch/useMutateRequest";
 import { AxiosError } from "axios";
 import PageTitle from "@/components/PageTitle";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
-import { Money } from "@/providers/intl/IntlMoney";
-import { DatePicker } from "@/components/ui/date-picker";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
-const CreateCompetitionPage = () => {
+const CreateExercisePage = () => {
   const nameTakenMessage = useMessage({
-    value: "Competitions.name.alreadyTaken",
+    value: "Exercises.name.alreadyTaken",
   });
 
-  const form = useForm<CreateCompetition>({
-    resolver: zodResolver(CreateCompetitionSchema),
+  const form = useForm<CreateExercise>({
+    resolver: zodResolver(CreateExerciseSchema),
     defaultValues: {
       name: "",
-      start: new Date(new Date().setDate(new Date().getDate() +1)),
-      end: new Date(new Date().setDate(new Date().getDate() + 2)),
-      startValue: 1000,
-      participants_limit: 1,
       description: "",
-      competition_type: ""
+      type: "",
+      bodyPart: "",
+      intensity: "LOW",
+      logo: ""
     },
   });
-  const { setError, handleSubmit, getValues, watch } = form;
+  const { setError, handleSubmit } = form;
   const navigate = useNavigate();
-  const [portfoliosCapital, setPortfoliosCapital] = useState(1000);
-  const [open, setOpen] = useState(false);
-  const [accessCode, setAccessCode] = useState("none");
 
   const { mutateAsync, isPending } = useMutateRequest({
     method: "POST",
-    url: "/competitions",
-    onSuccess: (createdCompetition: Competition) => {
-      if(createdCompetition.competitionType == CompetitionType.PRIVATE) {
-        setAccessCode(createdCompetition.code)
-        setOpen(true)
-      } else {
-        navigate("/competitions/upcoming")
-      }
+    url: "/exercises",
+    onSuccess: () => {
+      navigate("/exercises")
     },
     onError: (error: AxiosError<any, ErrorData>) => {
       if (error.response?.status === 400 && error.response.data?.name) {
@@ -72,42 +57,23 @@ const CreateCompetitionPage = () => {
     },
   });
 
-  useEffect(() => {
-    setPortfoliosCapital(getValues("startValue"));
-  }, [watch("startValue")]);
-
-  const onSubmit = async (data: CreateCompetition) => {
+  const onSubmit = async (data: CreateExercise) => {
     if (data.description.trim().length === 0) {
-      data.description = null;
+      data.description = useMessage({
+        value: "Exercises.description.notProvided",
+      });
     }
+    console.log(data)
     await mutateAsync(data);
   };
 
   return (
-    <IntlMessagePathProvider value="Competitions" override>
+    <IntlMessagePathProvider value="Exercise" override>
       <PageTitle>
         <Message>create.pageTitle</Message>
       </PageTitle>
-      <AlertDialog open={open}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>
-              <Message>privateCode.title</Message>
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              <Message>privateCode.message</Message>
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          {accessCode}
-          <AlertDialogFooter>
-            <Button variant="outline" onClick={() => {navigate("/competitions/upcoming");}}>
-              <Message exactly>Common.close</Message>
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
       <div className="text-start">
-        <BackButton to="/competitions/upcoming" />
+        <BackButton to="/exercises" />
       </div>
       <div className="flex justify-center mt-6">
         <Form {...form}>
@@ -121,7 +87,7 @@ const CreateCompetitionPage = () => {
                 name="name"
                 render={({ field, fieldState: { error } }) => (
                   <FormItem>
-                    <FormLabel exactly>Competitions.name.label</FormLabel>
+                    <FormLabel exactly>Exercise.name.label</FormLabel>
                     <FormControl>
                       <Input {...field} error={error} />
                     </FormControl>
@@ -131,66 +97,25 @@ const CreateCompetitionPage = () => {
               />
               <FormField
                 control={form.control}
-                name="start"
+                name="type"
                 render={({ field, fieldState: { error } }) => (
                   <FormItem>
-                    <FormLabel exactly>Competitions.start.label</FormLabel>
-                      <DatePicker
-                        disablePast={true}
-                        onValueChange={value => {
-                          field.onChange(value);
-                        }}
-                        value={field.value}
-                        error={error}
-                      />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="end"
-                render={({ field, fieldState: { error } }) => (
-                  <FormItem>
-                    <FormLabel exactly>Competitions.end.label</FormLabel>
-                    <FormControl typeof="date">
-                      <DatePicker
-                        disablePast={true}
-                        onValueChange={value => {
-                          field.onChange(value);
-                        }}
-                        value={field.value}
-                        error={error}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="startValue"
-                render={({ field, fieldState: { error } }) => (
-                  <FormItem>
-                    <FormLabel exactly>Competitions.portfoliosCapital.label</FormLabel>
+                    <FormLabel exactly>Exercise.type.label</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} error={error} />
+                      <Input {...field} error={error} />
                     </FormControl>
                     <FormMessage />
-                    <FormDescription>
-                      <Money>{portfoliosCapital}</Money>
-                    </FormDescription>
                   </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
-                name="participants_limit"
+                name="bodyPart"
                 render={({ field, fieldState: { error } }) => (
                   <FormItem>
-                    <FormLabel exactly>Competitions.maxParticipants.label</FormLabel>
+                    <FormLabel exactly>Exercise.bodyPart.label</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} error={error} />
+                      <Input {...field} error={error} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -198,10 +123,10 @@ const CreateCompetitionPage = () => {
               />
               <FormField
                 control={form.control}
-                name="competition_type"
+                name="intensity"
                 render={({ field, fieldState: { error } }) => (
                   <FormItem>
-                    <FormLabel exactly>Competitions.competitionType.label</FormLabel>
+                    <FormLabel exactly>Exercise.intensity.label</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -212,11 +137,14 @@ const CreateCompetitionPage = () => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            <SelectItem value="PUBLIC">
-                              {"PUBLIC"}
+                            <SelectItem value="LOW">
+                              {"LOW"}
                             </SelectItem>
-                            <SelectItem value="PRIVATE">
-                              {"PRIVATE"}
+                            <SelectItem value="MEDIUM">
+                              {"MEDIUM"}
+                            </SelectItem>
+                            <SelectItem value="HIGH">
+                              {"HIGH"}
                             </SelectItem>
                         </SelectContent>
                       </Select>
@@ -250,4 +178,4 @@ const CreateCompetitionPage = () => {
   );
 };
 
-export default CreateCompetitionPage;
+export default CreateExercisePage;

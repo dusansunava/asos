@@ -2,18 +2,20 @@ import DataTable from "@/components/data-table/table";
 import {
   exerciseColumns,
   exerciseFilters,
-} from "@/pages/user/exerciseList/columns-filters";
-import { ExercisesTabs } from "@/pages/user/exerciseList/layout";
+} from "@/pages/user/exercise/columns-filters";
+import ExercisesLayout from "../layout";
 
 const ExerciseListPage = () => {
   return (
+    <div>
+    <ExercisesLayout></ExercisesLayout>
     <DataTable
       columns={exerciseColumns}
       filters={exerciseFilters}
-      url="/exercises/tableData"
+      url="/exercises/table"
     >
-      <ExercisesTabs />
     </DataTable>
+    </div>
   );
 };
 
