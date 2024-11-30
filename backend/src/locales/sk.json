@@ -15,8 +15,9 @@
   "Menu.exerciseList": "Zoznam cvikov",
   "Menu.assets": "Aktíva",
   "Menu.leaderBoards": "Rebríčky hráčov",
-  "Menu.settings": "Nastavenia",
+  "Menu.profile": "Profile",
   "Menu.profile.edit": "Upraviť profil",
+  "Menu.passwordChange": "Zmena hesla",
   "Menu.food": "Jedlo",
   "Menu.exercise": "Aktivity",
   "Common.name": "Meno",
@@ -89,6 +90,8 @@
   "Form.username.label": "Používateľské meno",
   "Form.password.label": "Heslo",
   "Form.confirmPassword.label": "Potvrdenie hesla",
+  "Form.newPassword.label": "Nové heslo",
+  "Form.oldPassword.label": "Staré heslo",
   "VerificationEmail.subject": "Overenie emailu",
   "VerificationEmail.verifyButton": "Overiť",
   "VerificationEmail.emailDescription": "Stlačením tlačidla overiť dôjde k presmerovania do Fitness portálu a k overeniu emailovej adresy.",
@@ -125,5 +128,6 @@
   "Food.Fat": "Tuky",
   "Food.amount": "Množstvo (v gramoch)",
   "Food.logFood": "Pridať záznam",
-  "Food.howMuchBro": "Zadajte množstvo"
+  "Food.howMuchBro": "Zadajte množstvo",
+  "Error.invalidPassword": "Invalid password"
 }

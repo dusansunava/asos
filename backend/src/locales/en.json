@@ -15,8 +15,9 @@
   "Menu.exerciseList": "Exercise list",
   "Menu.assets": "Assets",
   "Menu.leaderBoards": "Leader boards",
-  "Menu.settings": "Settings",
+  "Menu.profile": "Profile",
   "Menu.profile.edit": "Edit profile",
+  "Menu.passwordChange": "Password change",
   "Menu.food": "Food",
   "Menu.exercise": "Exercise",
   "Common.name": "Name",
@@ -89,6 +90,8 @@
   "Form.username.label": "Username",
   "Form.password.label": "Password",
   "Form.confirmPassword.label": "Confirm password",
+  "Form.newPassword.label": "New password",
+  "Form.oldPassword.label": "Old password",
   "VerificationEmail.subject": "Email verification",
   "VerificationEmail.verifyButton": "Verify",
   "VerificationEmail.emailDescription": "By pressing the verify button, you will be redirected to the TradeSim portal and your email address will be verified.",
@@ -125,5 +128,6 @@
   "Food.Fat": "Fat",
   "Food.amount": "Amount (grams)",
   "Food.logFood": "Log food",
-  "Food.howMuchBro": "Specify the amount"
+  "Food.howMuchBro": "Specify the amount",
+  "Error.invalidPassword": "Nesprávne heslo"
 }
