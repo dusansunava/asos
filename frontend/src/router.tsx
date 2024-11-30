@@ -28,7 +28,7 @@ import ExercisesLayout from "./pages/user/exercise/layout";
 const PageLoader = () => {
   return (
     <div className="w-full py-4 flex items-center justify-center">
-      <Loader2 className="h-12 w-12 animate-spin" />
+      <Loader2 className="h-8 w-8 animate-spin" />
     </div>
   );
 };
