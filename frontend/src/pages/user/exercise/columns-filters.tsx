@@ -53,14 +53,14 @@ export const exerciseColumns: DataTableColumnDef<Exercise>[] = [
             <Button className="p-0" variant="ghost">
               <Link
                 className="px-4 py-2"
-                to={`/exercise/detail/${row.original.id}`}
+                to={`/exercises/detail/${row.original.id}`}
               >
                 <Search />
               </Link>
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <Message>detail</Message>
+            <Message exactly>Exercise.detail.pageTitle</Message>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

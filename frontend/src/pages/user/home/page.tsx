@@ -85,7 +85,7 @@ const HomePage = () => {
               </>
             )}
             <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 px-2 mb-4">
-                <Link to="/food"
+                <Link to="/exercises/owned"
                       className={buttonVariants({ variant: "secondary" })}>
                   <MousePointerClick />
                   <Message>button.viewExercise</Message>
