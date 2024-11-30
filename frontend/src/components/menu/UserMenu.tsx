@@ -4,26 +4,86 @@ import {
   Menu,
   Home,
   FolderOpen,
-  LineChart,
   CalendarPlus,
   Settings,
-  Pencil,
-  Bike
+  Bike, Languages, Moon, Sun, User
 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel, DropdownMenuPortal,
+  DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { useAuthContext } from "@/providers/auth";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { useQueryClient } from "@tanstack/react-query";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Message } from "@/providers/intl/IntlMessage";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import MenuNavItem from "@/components/menu/MenuNavItem";
 import { Link } from "react-router-dom";
 import { SideMenuLogo } from "@/components/menu/Logo";
 import useMutateRequest from "@/lib/fetch/useMutateRequest";
+import {useLanguage} from "@/providers/intl/IntlProvider.tsx";
+import {useTheme} from "@/providers/theme.tsx";
+import {ReactNode} from "react";
+import {PopoverContentProps} from "@radix-ui/react-popover";
+import {useUser} from "@/providers/user/UserProvider.tsx";
+
+const SettingsDropdown = ({ children, side }: { children: ReactNode, side: PopoverContentProps["side"] }) => {
+  const { setLanguage } = useLanguage()
+  const {theme, setTheme} = useTheme()
+  const { user } = useUser();
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        {children}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent side={side}>
+        <DropdownMenuLabel asChild>
+          <Link to="/settings" className="flex grow w-full cursor-pointer">
+            {user && user.username}
+          </Link>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            {theme === "dark" ? <Moon className="h-4 w-4 mr-2" /> : <Sun className="h-4 w-4 mr-2" />}
+            <Message exactly>Menu.theme</Message>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem onClick={() => setTheme("light")}>
+                <Message exactly>Menu.theme.light</Message>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>
+                <Message exactly>Menu.theme.dark</Message>
+              </DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <Languages className="h-4 w-4 mr-2" />
+            <Message exactly>Menu.language</Message>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem onClick={() => setLanguage("sk")}>
+                <Message exactly>Menu.language.slovak</Message>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setLanguage("en")}>
+                <Message exactly>Menu.language.english</Message>
+              </DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 
 const MenuContent = () => {
   const queryClient = useQueryClient();
@@ -32,6 +92,7 @@ const MenuContent = () => {
     method: "POST",
     url: "/logout",
   });
+  const { user } = useUser();
 
   return (
     <div className="h-full overflow-y-auto flex flex-col gap-y-6 relative">
@@ -70,37 +131,25 @@ const MenuContent = () => {
           <Message>logout</Message>
         </Button>
       </nav>
-      <div className="flex justify-center">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button className="rounded-full w-24 h-24 text-lg hidden lg:block">
-              Icon
+      <div className="flex justify-center flex-grow items-end">
+        {user && <SettingsDropdown side="right">
+            <Button className="uppercase focus-visible:ring-0 w-[160px] h-10 text-xl hidden lg:flex lg:flex-row">
+                <User className="mr-2" />
+              {user.username.slice(0, 2)}
             </Button>
-          </PopoverTrigger>
-          <PopoverContent side="right">
-            <div className="flex flex-col gap-y-2">
-              <p>admin123@gmail.com</p>
-              <p>username</p>
-              <Link
-                to="/home"
-                className={buttonVariants({ variant: "default" })}
-              >
-                <Pencil className="mr-3 h-6 w-6" />
-                <Message>profile.edit</Message>
-              </Link>
-            </div>
-          </PopoverContent>
-        </Popover>
+        </SettingsDropdown>}
       </div>
     </div>
   );
 };
 
 const UserMenu = () => {
+  const { user } = useUser();
+
   return (
     <IntlMessagePathProvider value="Menu" override>
       <>
-        <aside className="fixed hidden lg:block z-50 top-0 left-0 bg-background border-r w-[250px] h-screen px-2 py-6">
+        <aside className="fixed hidden lg:block z-50 top-0 left-0 bg-background border-r w-[250px] h-screen p-6">
           <MenuContent />
         </aside>
       </>
@@ -116,24 +165,11 @@ const UserMenu = () => {
           </SheetContent>
         </Sheet>
         <div className="flex items-center gap-x-2">
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button className="h-11 w-11 rounded-full mx-2">Icon</Button>
-            </PopoverTrigger>
-            <PopoverContent side="bottom">
-              <div className="flex flex-col gap-y-2">
-                <p>admin123@gmail.com</p>
-                <p>username</p>
-                <Link
-                  to="/home"
-                  className={buttonVariants({ variant: "default" })}
-                >
-                  <Pencil className="mr-3 h-6 w-6" />
-                  <Message>profile.edit</Message>
-                </Link>
-              </div>
-            </PopoverContent>
-          </Popover>
+          {user && <SettingsDropdown side="bottom">
+            <Button className="uppercase focus-visible:ring-0 w-10 h-10 text-lg">
+              {user.username.slice(0, 2)}
+            </Button>
+          </SettingsDropdown>}
         </div>
       </header>
     </IntlMessagePathProvider>
