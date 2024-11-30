@@ -11,7 +11,7 @@ const LoginPage = lazy(() => import("@/pages/guest/login/page"));
 const WelcomePage = lazy(() => import("@/pages/guest/welcome/page"));
 const NotFoundPage = lazy(() => import("@/pages/not-found/page"));
 const HomePage = lazy(() => import("@/pages/user/home/page"));
-const SettingsPage = lazy(() => import("@/pages/user/settings/page"));
+const ProfilePage = lazy(() => import("@/pages/user/profile/page"));
 const FoodPage = lazy(() => import("@/pages/user/food/page"));
 const CreateExercisePage = lazy(() => import("@/pages/user/exercise/create/page"));
 const OwnedExercisesPage = lazy(() => import("@/pages/user/exercise/owned/page"));
@@ -122,10 +122,10 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="settings"
+          path="profile"
           element={
             <Suspense fallback={<PageLoader />}>
-              <SettingsPage />
+              <ProfilePage />
             </Suspense>
           }
         />

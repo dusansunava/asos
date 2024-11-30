@@ -5,7 +5,6 @@ import {
   Home,
   FolderOpen,
   CalendarPlus,
-  Settings,
   Bike, Languages, Moon, Sun, User
 } from "lucide-react";
 import {
@@ -114,9 +113,9 @@ const MenuContent = () => {
           <CalendarPlus className="mr-3 h-6 w-6" />
           <Message>exerciseAdd</Message>
         </MenuNavItem>
-        <MenuNavItem to="/settings">
-          <Settings className="mr-3 h-6 w-6" />
-          <Message>settings</Message>
+        <MenuNavItem to="/profile">
+          <User className="mr-3 h-6 w-6" />
+          <Message>profile</Message>
         </MenuNavItem>
         <Button
           onClick={() => {
