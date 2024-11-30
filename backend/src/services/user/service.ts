@@ -1,5 +1,6 @@
 import { RESET_PASS_TOKEN_EXPIRATION } from "@/config/constants";
 import {
+  ChangePassword,
   ResetPassword,
   SendResetPasswordEmail,
 } from "@/controllers/user/schema";
@@ -7,7 +8,9 @@ import { db } from "@/db/connection";
 import CreateResetPasswordEmail from "@/emails/reset-password/email";
 import jwt, { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 import { EmailJwtPayload } from "@/services/authentication/schema";
-import { hashPassword } from "@/services/authentication/passwordUtils";
+import {checkPasswords, hashPassword} from "@/services/authentication/passwordUtils";
+import {Request} from "express";
+import {findUserById} from "@/repositories/user";
 
 export const getUserByEmail = async (email: string) => {
   return db.user.findUnique({
@@ -81,6 +84,39 @@ export const resetUserPassword = async (request: ResetPassword) => {
     } else if (err instanceof JsonWebTokenError) {
       return { success: false, error: { resetToken: "invalid_token" } };
     }
+    return { success: false, error: { server: err } };
+  }
+};
+
+export const changePasswordService = async (req: Request) => {
+  const userId = req.jwtPayload?.id as string;
+  const data = req.body as ChangePassword;
+
+  try {
+    const user = await findUserById(userId);
+
+    if (!user)
+      return { success: false }
+
+    const passwordsMatching = await checkPasswords(
+      user.password,
+      data.oldPassword,
+      user.salt
+    );
+
+    if (!passwordsMatching) {
+      return { success: false, error: { credentials: "not_matching" } };
+    }
+
+    const [salt, hashedPassword] = await hashPassword(data.newPassword);
+
+    await db.user.update({
+      where: { id: userId },
+      data: { salt, password: hashedPassword }
+    })
+
+    return { success: true };
+  } catch (err) {
     return { success: false, error: { server: err } };
   }
 };
