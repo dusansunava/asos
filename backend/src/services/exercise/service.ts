@@ -15,6 +15,21 @@ export const getAllExercises = async () => {
   }
 };
 
+export const getExerciseService = async (exerciseId: string) => {
+  try {
+
+    const exercise = await exerciseRepository.getExerciseById(exerciseId);
+
+    if (!exercise) {
+      return { success: false, error: { portfolio: ServerError.NOT_FOUND } };
+    }
+
+    return { success: true, data: exercise };
+  } catch (err) {
+    return { success: false, error: { server: err } };
+  }
+};
+
 export const getUserExercisesService = async (req: Request) => {
   try {
     const userId = req.jwtPayload?.id;
