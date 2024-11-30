@@ -16,6 +16,7 @@ import { Message } from "@/providers/intl/IntlMessage";
 import { useQueryClient } from "@tanstack/react-query";
 import useQueryRequest from "@/lib/fetch/useQueryRequest";
 import { AxiosError } from "axios";
+import UserProvider from "@/providers/user/UserProvider.tsx";
 
 const UserLayout = () => {
   const navigate = useNavigate();
@@ -29,22 +30,24 @@ const UserLayout = () => {
   }, [token]);
 
   return (
-    <div className="min-h-screen w-full relative lg:pl-[250px] pt-14 lg:pt-0">
-      <ErrorBoundary
-        FallbackComponent={ErrorFallback}
-        onReset={() => {
-          queryClient.clear();
-          setToken(null);
-        }}
-      >
-        <PersistLogin>
-          <UserMenu />
-          <main className="text-center px-4 pb-6 py-6 w-full min-h-[calc(100vh-3.5rem)] lg:min-h-screen">
-            <Outlet />
-          </main>
-        </PersistLogin>
-      </ErrorBoundary>
-    </div>
+    <UserProvider>
+      <div className="min-h-screen w-full relative lg:pl-[250px] pt-14 lg:pt-0">
+        <ErrorBoundary
+          FallbackComponent={ErrorFallback}
+          onReset={() => {
+            queryClient.clear();
+            setToken(null);
+          }}
+        >
+          <PersistLogin>
+            <UserMenu />
+            <main className="text-center px-4 pb-6 py-6 w-full min-h-[calc(100vh-3.5rem)] lg:min-h-screen">
+              <Outlet />
+            </main>
+          </PersistLogin>
+        </ErrorBoundary>
+      </div>
+    </UserProvider>
   );
 };
 
