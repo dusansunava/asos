@@ -7,7 +7,6 @@ import {
   SendResetPasswordEmailSchema,
 } from "@/controllers/user/schema";
 import validate from "@/middleware/validate";
-import verifyJWT from "@/middleware/verifyJWT";
 import { Router } from "express";
 
 export default (router: Router) => {
