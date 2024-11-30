@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ServerError } from "@/schema";
-import { getAllExercises, createExercise, getUserExercisesService, getExercisesDataTable, deleteExerciseService, updateExerciseService } from "@/services/exercise/service";
+import { getAllExercises, createExercise, getUserExercisesService, getExercisesDataTable, deleteExerciseService, updateExerciseService, getExerciseService } from "@/services/exercise/service";
 
 export const getAll = async (req: Request, res: Response) => {
   const result = await getAllExercises();
@@ -15,6 +15,16 @@ export const getUserExercises = async (req: Request, res: Response) => {
   const result = await getUserExercisesService(req);
   if (result.success) {
     return res.status(200).send(result.data);
+  }
+  return res.status(500).send(result.error);
+};
+
+export const getExercise = async (req: Request, res: Response) => {
+  const result = await getExerciseService(req.params?.id);
+  if (result.success) {
+    return res.status(200).send(result.data);
+  } else if (result.error?.portfolio === ServerError.NOT_FOUND) {
+    return res.status(404).send(result.error);
   }
   return res.status(500).send(result.error);
 };
