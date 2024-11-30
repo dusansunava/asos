@@ -1,6 +1,10 @@
 {
   "Menu.language.slovak": "Slovenčina",
   "Menu.language.english": "Angličtina",
+  "Menu.language": "Jazyk",
+  "Menu.theme": "Téma",
+  "Menu.theme.light": "Svetlá",
+  "Menu.theme.dark": "Tmavá",
   "Menu.register": "Registrácia",
   "Menu.login": "Prihlásenie",
   "Menu.welcome": "Úvod",

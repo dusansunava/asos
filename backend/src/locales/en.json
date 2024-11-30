@@ -1,7 +1,11 @@
 {
   "Menu.language.slovak": "Slovak",
   "Menu.language.english": "English",
+  "Menu.language": "Language",
   "Menu.register": "Register",
+  "Menu.theme": "Theme",
+  "Menu.theme.light": "Light",
+  "Menu.theme.dark": "Dark",
   "Menu.login": "Login",
   "Menu.welcome": "Welcome",
   "Menu.logout": "Log out",
