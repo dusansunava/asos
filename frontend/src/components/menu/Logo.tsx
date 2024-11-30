@@ -12,7 +12,7 @@ export const SideMenuLogo = ({ to }: { to: "/home" | "/" }) => {
           alt="Logo"
         />
         <img className="h-40 w-40 dark:hidden" src={LogoLight} alt="Logo" />
-        <h2 className="font-bold italic text-center text-2xl">YumLab</h2>
+        <h2 className="font-bold italic text-center text-2xl">Fitness app</h2>
       </Link>
     </div>
   );
@@ -26,7 +26,7 @@ export const TopMenuLogo = ({ to }: { to: "/home" | "/" }) => {
     >
       <img className="h-12 w-12 hidden dark:block" src={LogoDark} alt="Logo" />
       <img className="h-12 w-12 dark:hidden" src={LogoLight} alt="Logo" />
-      <h2 className="font-bold italic text-center text-2xl">YumLab</h2>
+      <h2 className="font-bold italic text-center text-2xl">Fitness app</h2>
     </Link>
   );
 };
