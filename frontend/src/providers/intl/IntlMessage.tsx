@@ -1,7 +1,6 @@
 import { SpanSkeleton } from "@/components/ui/skeleton";
 import { useIntlMessagePathContext } from "./IntlMessagePath";
 import { useLanguage } from "./IntlProvider";
-import { IntlMessageFormat } from "intl-messageformat";
 
 type UseMessageProps = {
   value: string;
@@ -24,33 +23,36 @@ export const useMessage = ({
 
   if (current && !exactly) key = current + "." + _key;
 
-  if (args) {
-    for (const [key, value] of Object.entries(args)) {
-      if (value instanceof Date) {
-        args = {
-          ...args,
-          [key]: new Intl.DateTimeFormat(language, {
-            dateStyle: "short",
-            timeStyle: "short",
-          }).format(value),
-        };
-      } else if (typeof value === "string" && Date.parse(value)) {
-        args = {
-          ...args,
-          [key]: new Intl.DateTimeFormat(language, {
-            dateStyle: "short",
-            timeStyle: "short",
-          }).format(new Date(value)),
-        };
-      }
-    }
+  if (messages[key]) {
+    return buildMessage(messages[key], language, args)
   }
 
-  let message = messages[key]
-    ? (new IntlMessageFormat(messages[key], language).format(args) as string)
-    : null;
-  return message || key;
+  return key
 };
+
+export function buildMessage(message: string, locale: string, args?: {
+  [key: string]: Date | number | string
+}): string {
+  if (!args) {
+    return message
+  }
+  const handledArgs = Object.entries(args)
+    .reduce((obj, [key, value]) => {
+      if (value instanceof Date) {
+        obj[key] = new Intl.DateTimeFormat(locale, {year: 'numeric', month: 'short', day: 'numeric'})
+          .format(new Date(value))
+      } else {
+        obj[key] = value.toString()
+      }
+
+      return obj
+    }, {} as { [key: string]: string })
+
+  const injected = message.split(/{(\w+)}/g)
+    .map(part => part in handledArgs ? handledArgs[part] : part)
+
+  return injected.join('')
+}
 
 type MessageProps = {
   children: string | number;
