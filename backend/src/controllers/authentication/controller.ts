@@ -3,7 +3,7 @@ import {
   registerUser,
   loginUser,
   refreshUserSession,
-  logoutUser
+  logoutUser, getAuthenticatedUser
 } from "@/services/authentication/service";
 
 export const register = async (req: Request, res: Response) => {
@@ -60,3 +60,22 @@ export const logout = async (req: Request, res: Response) => {
   }
   return res.status(500).send(result.error);
 };
+
+export const authenticatedUser = async (req: Request, res: Response) => {
+  const result = await getAuthenticatedUser(req);
+
+  if (result.success && result.user) {
+    return res.status(200).send({
+      id: result.user.id,
+      username: result.user.username,
+      email: result.user.email,
+      role: result.user.role,
+      createdAt: result.user.createdAt,
+      updatedAt: result.user.updatedAt
+    })
+  } else if (!result.success && result.error) {
+    return res.status(500).send(result.error);
+  }
+
+  return res.status(401)
+}

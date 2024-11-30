@@ -1,23 +1,21 @@
 import {
   TRegisterUser,
   TLoginUser,
-  TSendVerificationEmail,
 } from "@/controllers/authentication/schema";
 import { db } from "@/db/connection";
 import {
   hashPassword,
   checkPasswords,
 } from "@/services/authentication/passwordUtils";
-import jwt, { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
+import jwt, { JsonWebTokenError } from "jsonwebtoken";
 import { Request } from "express";
 import {
   ACCESS_TOKEN_EXPIRATION,
   REFRESH_TOKEN_EXPIRATION,
   VERIFY_TOKEN_EXPIRATION,
 } from "@/config/constants";
-import { EmailJwtPayload } from "@/services/authentication/schema";
-import CreateVerificationEmail from "@/emails/verification/email";
 import { getUserByEmail, getUserByUsername } from "../user/service";
+import {findUserById} from "@/repositories/user";
 
 const getUserByRefreshToken = async (refreshToken: string) => {
   return db.user.findFirst({
@@ -172,6 +170,22 @@ export const logoutUser = async (request: Request) => {
       },
     });
     return { success: true, clearCookie: true };
+  } catch (err) {
+    return { success: false, error: { server: err } };
+  }
+};
+
+export const getAuthenticatedUser = async (request: Request) => {
+  const userId = request.jwtPayload?.id as string;
+
+  try {
+    const user = await findUserById(userId);
+
+    if (!user) {
+      return { success: false };
+    }
+
+    return { success: true, user };
   } catch (err) {
     return { success: false, error: { server: err } };
   }
