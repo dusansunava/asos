@@ -1,8 +1,6 @@
 import { Message } from "@/providers/intl/IntlMessage";
 import { Exercise } from "../schema";
-import { Link, useParams } from "react-router-dom";
-import { MousePointerClick } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useParams } from "react-router-dom";
 import useQueryRequest from "@/lib/fetch/useQueryRequest";
 import { Loader } from "@/components/ui/loader";
 import { Badge } from "@/components/ui/badge";

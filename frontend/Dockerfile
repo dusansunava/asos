@@ -10,13 +10,7 @@ COPY . .
 RUN npm install
 RUN npm run build
 
-FROM nginx:alpine as production-build
-COPY ./nginx/nginx.conf.template /etc/nginx/nginx.conf.template
-RUN rm -rf /usr/share/nginx/html/*
-COPY --from=builder /app/dist /usr/share/nginx/html
-COPY ./nginx/entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
 EXPOSE ${VITE_PORT}
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["npm", "run", "preview"]
   

@@ -13,7 +13,6 @@ import { IntlMessagePathProvider } from "@/providers/intl/IntlMessagePath";
 import {
   CreateExerciseSchema,
   ErrorData,
-  ExerciseItensity,
   CreateExercise
 } from "@/pages/user/exercise/schema";
 import { useForm } from "react-hook-form";
@@ -124,7 +123,7 @@ const CreateExercisePage = () => {
               <FormField
                 control={form.control}
                 name="intensity"
-                render={({ field, fieldState: { error } }) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel exactly>Exercise.intensity.label</FormLabel>
                       <Select
@@ -132,7 +131,7 @@ const CreateExercisePage = () => {
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger error={ error} >
+                          <SelectTrigger>
                             <SelectValue />
                           </SelectTrigger>
                         </FormControl>

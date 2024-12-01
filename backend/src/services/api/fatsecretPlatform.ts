@@ -15,7 +15,7 @@ interface OAuthParams {
 }
 
 if (process.env.NODE_ENV === "development") {
-  const env = dotenv.config({ path: "../.env.development" });
+  const env = dotenv.config({ path: "../.env.production.development" });
   dotenvExpand.expand(env);
 } else {
   dotenv.config();

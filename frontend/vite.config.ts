@@ -10,7 +10,7 @@ export default ({ mode }) => {
     envDir: "../",
     server: {
       host: process.env.VITE_HOST ? process.env.VITE_HOST : "localhost",
-      port: parseInt(process.env.VITE_PORT),
+      port: mode === "production" ? 4173 : parseInt(process.env.VITE_PORT),
     },
     resolve: {
       alias: {

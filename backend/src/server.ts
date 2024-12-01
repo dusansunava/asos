@@ -15,7 +15,7 @@ import { SUPPORTED_LANGUAGES } from "./config/constants";
 import language from "@/middleware/language";
 
 if (process.env.NODE_ENV === "development") {
-  const env = dotenv.config({ path: "../.env.development" });
+  const env = dotenv.config({ path: "../.env.production.development" });
   dotenvExpand.expand(env);
 }
 

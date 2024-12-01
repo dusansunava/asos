@@ -20,7 +20,7 @@ services:
         - VITE_BASE_URL=${VITE_BASE_URL}
     restart: always
     ports:
-      - "${VITE_PORT}:${VITE_PORT}"
+      - "${VITE_PORT}:4173"
     environment:
       - VITE_PORT=${VITE_PORT}
       - VITE_BASE_URL=${VITE_BASE_URL}
@@ -51,6 +51,9 @@ services:
       - EMAIL=${EMAIL}
       - FE_PORT=${FE_PORT}
       - BE_PORT=${BE_PORT}
+      - FATSECRET_CLIENT_ID=${FATSECRET_CLIENT_ID}
+      - FATSECRET_CLIENT_SECRET=${FATSECRET_CLIENT_SECRET}
+      - SPOONACULAR_API_KEY=${SPOONACULAR_API_KEY}
     depends_on:
       - postgres
     networks:

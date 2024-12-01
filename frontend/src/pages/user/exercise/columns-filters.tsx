@@ -19,7 +19,7 @@ export const exerciseColumns: DataTableColumnDef<Exercise>[] = [
     accessorKey: "logo",
     messageKey: "Common.logo",
     enableSorting: false,
-    cell: ({ row }) => <ExerciseLogo logo={row.original.logo} />,
+    cell: () => <ExerciseLogo />,
   },
   {
     accessorKey: "name",

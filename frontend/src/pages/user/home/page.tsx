@@ -6,14 +6,10 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tab } from "@/components/ui/tab";
 import { Message } from "@/providers/intl/IntlMessage";
-import { Loader } from "@/components/ui/loader";
-import { useQuery } from '@tanstack/react-query';
 import { IntlMessagePathProvider } from "@/providers/intl/IntlMessagePath";
-import { Portfolio } from "./schema";
 import { Link } from "react-router-dom";
 import { buttonVariants } from "@/components/ui/button";
-import apiService from "@/lib/fetch/apiService";
-import { MousePointerClick, PlusCircle } from "lucide-react";
+import { MousePointerClick } from "lucide-react";
 import useQueryRequest from "@/lib/fetch/useQueryRequest";
 import { Exercise } from "../exercise/schema";
 import { Fragment } from "react";
