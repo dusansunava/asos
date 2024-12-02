@@ -133,6 +133,22 @@ const router = createBrowserRouter(
           }
         />
         <Route
+          path="plan"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <PlanPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="training"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <TrainingPage />
+            </Suspense>
+          }
+        />
+        <Route
           path="profile"
           element={
             <Suspense fallback={<PageLoader />}>
