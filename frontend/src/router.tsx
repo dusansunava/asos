@@ -12,6 +12,8 @@ const WelcomePage = lazy(() => import("@/pages/guest/welcome/page"));
 const NotFoundPage = lazy(() => import("@/pages/not-found/page"));
 const HomePage = lazy(() => import("@/pages/user/home/page"));
 const ProfilePage = lazy(() => import("@/pages/user/profile/page"));
+const PlanPage = lazy(() => import("@/pages/user/plan/page"));
+const TrainingPage = lazy(() => import("@/pages/user/trainings/page"));
 const FoodPage = lazy(() => import("@/pages/user/food/page"));
 const CreateExercisePage = lazy(() => import("@/pages/user/exercise/create/page"));
 const OwnedExercisesPage = lazy(() => import("@/pages/user/exercise/owned/page"));
