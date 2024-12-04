@@ -19,6 +19,7 @@ import { IntlMessagePathProvider } from "@/providers/intl/IntlMessagePath";
 import useQueryRequest from "@/lib/fetch/useQueryRequest";
 import { Exercise } from "@/pages/user/exercise/schema";
 import { Message } from "@/providers/intl/IntlMessage";
+import { useNavigate } from "react-router-dom";
 
 const workoutSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -51,6 +52,7 @@ const CreateWorkoutPlan = () => {
     },
   });
 
+  const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationFn: async (payload: WorkoutFormValues) => {
       const { data } = await apiService.post("http://localhost:7080/api/training-plans", payload);
@@ -61,7 +63,7 @@ const CreateWorkoutPlan = () => {
       alert("An error occurred while submitting the workout plan.");
     },
     onSuccess: () => {
-      alert("Workout plan saved successfully!");
+      navigate("/training")
     },
   });
 
@@ -73,7 +75,7 @@ const CreateWorkoutPlan = () => {
     <IntlMessagePathProvider value="WorkoutPlan" override>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="p-4 max-w-2xl mx-auto">
-          <h1 className="text-xl font-bold mb-4">Create Workout Plan</h1>
+          <h1 className="text-xl font-bold mb-4"><Message>Create Workout Plan</Message></h1>
           <FormField
             control={form.control}
             name="name"
