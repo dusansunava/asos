@@ -27,17 +27,16 @@ import { useQueryClient } from "@tanstack/react-query";
 const TrainingPlanCard = ({ trainingPlan }: { trainingPlan: TrainingPlan }) => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync: deleteTrainingPlan, isPending: isDeleting } =
-    useMutateRequest({
-      method: "DELETE",
-      url: `/training-plans/${trainingPlan.id}`,
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["/training-plans"],
-          exact: true,
-        });
-      },
-    });
+  const { mutateAsync: deleteTrainingPlan, isPending: isDeleting } = useMutateRequest({
+    method: "DELETE",
+    url: `/training-plans/${trainingPlan.id}`,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["/training-plans"],
+        exact: true,
+      });
+    },
+  });
 
   const onDelete = async () => {
     try {
@@ -57,25 +56,25 @@ const TrainingPlanCard = ({ trainingPlan }: { trainingPlan: TrainingPlan }) => {
           <p className="text-muted-foreground">
             <Message>Duration</Message>:
           </p>
-          <p>{trainingPlan.duration} minutes</p>
+          <p>{trainingPlan.duration} weeks</p>
         </div>
         <div className="flex gap flex-wrap gap-2">
           <p className="text-muted-foreground">
-            <Message>Exercises</Message>:
+            <Message>Type</Message>:
           </p>
-          <p>{trainingPlan.exercises.length}</p>
+          <p>{trainingPlan.type}</p>
         </div>
         <div className="flex gap flex-wrap gap-2">
           <p className="text-muted-foreground">
-            <Message>StartDate</Message>:
+            <Message>Start Date</Message>:
           </p>
-          <p>{new Date(trainingPlan.startDate).toLocaleDateString()}</p>
+          <p>{new Date(trainingPlan.createdAt).toLocaleDateString()}</p>
         </div>
         <div className="flex gap flex-wrap gap-2">
           <p className="text-muted-foreground">
-            <Message>EndDate</Message>:
+            <Message>End Date</Message>:
           </p>
-          <p>{new Date(trainingPlan.endDate).toLocaleDateString()}</p>
+          <p>{new Date(trainingPlan.updatedAt).toLocaleDateString()}</p>
         </div>
       </CardContent>
       <CardFooter className="flex justify-end items-center gap-2">
@@ -100,9 +99,7 @@ const TrainingPlanCard = ({ trainingPlan }: { trainingPlan: TrainingPlan }) => {
               </AlertDialogCancel>
               <AlertDialogAction onClick={onDelete}>
                 <Loader2
-                  className={`w-4 h-4 animate-spin mr-2 ${
-                    !isDeleting && "hidden"
-                  }`}
+                  className={`w-4 h-4 animate-spin mr-2 ${!isDeleting && "hidden"}`}
                 />
                 <Message>Delete</Message>
               </AlertDialogAction>

@@ -77,7 +77,7 @@ const FoodPage = () => {
       <div className="mb-6">
         {Object.entries(foodByDate).map(
           ([date, { items, calories, protein, carbohydrates, fat }]) => (
-            <div key={date} className="mb-4 p-4 border rounded shadow bg-white">
+            <div key={date} className="mb-4 p-4 border rounded shadow">
               <h2 className="text-xl font-bold"><Message>Day</Message> - {formatDate(date)}</h2> {/* Zobrazenie formátovaného dátumu */}
               <p className="text-left">
                 <strong><Message>Calories</Message>:</strong> {formatValue(calories)}

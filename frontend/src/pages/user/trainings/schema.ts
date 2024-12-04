@@ -24,5 +24,7 @@ export type Exercise = {
     createdBy: string; // ID používateľa, ktorý vytvoril plán
     createdAt: string; // Dátum vytvorenia (ISO formát)
     updatedAt: string; // Dátum poslednej aktualizácie (ISO formát)
+    type: string;
+    
   };
   

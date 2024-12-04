@@ -152,9 +152,9 @@
   "Menu.plan": "Create plan",
   "WorkoutPlan.pageTitle": "Create your training plan",
   "WorkoutPlan.Create Workout Plan": "Create your training plan",
-  "WorkoutPlan.Workout Name": "Training name",
-  "WorkoutPlan.Description": "Training description",
-  "WorkoutPlan.Workout Date": "Date",
+  "Form.Workout Name.label": "Training name",
+  "Form.Description.label": "Training description",
+  "Form.Workout Date.label": "Date",
   "WorkoutPlan.Exercises": "Exercises",
   "WorkoutPlan.Add Exercise": "Add exercise",
   "WorkoutPlan.Save Workout Plan": "Save training plan",
@@ -172,5 +172,12 @@
   "TrainingPlans.reps": "Reps:",
   "TrainingPlans.restDuration": "Rest duration:",
   "TrainingPlans.seconds": "seconds",
-  "FoodLogs.Day": "Day"
+  "FoodLogs.Day": "Day",
+  "Form.Exercise.label": "Exercise",
+  "Form.Sets.label": "Number of sets",
+  "Form.Reps.label": "Number of reps",
+  "Form.Rest (seconds).label": "Rest duration (seconds)",
+  "WorkoutPlan.Enter workout name": "Enter training name",
+  "WorkoutPlan.Enter workout description": "Enter training description",
+  "TrainingPlans.delete": "Delete plan"
 }

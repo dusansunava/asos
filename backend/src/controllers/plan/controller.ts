@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
 import { createTrainingPlan, getTrainingPlans, getTrainingPlanById, updateTrainingPlan, deleteTrainingPlan } from "@/services/plan/service";
 import { CreateTrainingPlanSchema, UpdateTrainingPlanSchema } from "@/services/plan/schema";
-import user from "@/routes/user";
 
 export const createPlan = async (req: Request, res: Response) => {
   try {
-
     const userId = req.jwtPayload?.id;
     if (!userId) {
       return res.status(400).json({ error: "User ID not found" });

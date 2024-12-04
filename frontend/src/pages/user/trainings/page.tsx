@@ -5,17 +5,21 @@ import PageTitle from "@/components/PageTitle";
 import { Button } from "@/components/ui/button";
 import { IntlMessagePathProvider } from "@/providers/intl/IntlMessagePath";
 import { Message } from "@/providers/intl/IntlMessage";
-import TrainingPlanCard, { LoadingTrainingPlanCard } from "@/pages/user/trainings/TrainingPlanCard";
+import { LoadingTrainingPlanCard } from "@/pages/user/trainings/TrainingPlanCard";
 import { useLocalStorage } from "@/lib/useLocalStorage";
 import { TrainingPlan, Exercise } from "@/pages/user/trainings/schema";
+import apiService from "@/lib/fetch/apiService";
 import useQueryRequest from "@/lib/fetch/useQueryRequest";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+
 
 const TrainingPlansPage = () => {
   const { data: plansData, isLoading: isPlansLoading } = useQueryRequest<TrainingPlan[]>({
     url: "/training-plans",
   });
 
-  const { data: exercisesData, isLoading: isExercisesLoading } = useQueryRequest<Exercise[]>({
+  const { data: exercisesData } = useQueryRequest<Exercise[]>({
     url: "/exercises",
   });
 
@@ -39,6 +43,26 @@ const TrainingPlansPage = () => {
     return exercisesData?.find((exercise) => exercise.id === exerciseId) || null;
   };
 
+  const navigate = useNavigate();
+
+  const { mutate } = useMutation({
+    mutationFn: async (payload: String) => {
+      const { data } = await apiService.delete(`http://localhost:7080/api/training-plans/${payload}`);
+      console.log("Submitting payload:", payload);
+      return data;
+    },
+    onError: () => {
+      alert("An error occurred while deleting the workout plan.");
+    },
+    onSuccess: () => {
+      navigate(0)
+    },
+  });
+
+  const onDelete = async (id: String) => {
+    mutate(id);
+  };
+
   return (
     <IntlMessagePathProvider value="TrainingPlans" override>
       <PageTitle />
@@ -53,7 +77,7 @@ const TrainingPlansPage = () => {
       <div className="mb-6">
         {plansData &&
           plansData.map((plan) => (
-            <div key={plan.id} className="mb-4 p-4 border rounded shadow bg-white">
+            <div key={plan.id} className="mb-4 p-4 border rounded shadow">
               <h2 className="text-xl font-bold">{plan.name}</h2>
               <p className="text-left">
                 <strong>
@@ -73,6 +97,13 @@ const TrainingPlansPage = () => {
                 </strong>{" "}
                 {plan.description}
               </p>
+              <Button
+                variant="destructive"
+                onClick={() => onDelete(plan.id)}
+                className="mt-4"
+              >
+                <Message>delete</Message>
+              </Button>
               <div className="flex flex-wrap gap-4 mt-4">
                 {plan.exercises && plan.exercises.length > 0 ? (
                   plan.exercises.map((exercise) => {
@@ -80,7 +111,7 @@ const TrainingPlansPage = () => {
                     return (
                       <div
                         key={exercise.exerciseId}
-                        className="p-4 border rounded shadow bg-gray-100 w-[calc(33.33%-1rem)]"
+                        className="p-4 border rounded shadow -100 w-[calc(33.33%-1rem)]"
                       >
                         <h3 className="text-lg font-semibold text-center">
                           {exerciseDetails?.name || <Message>nameUnavailable</Message>}

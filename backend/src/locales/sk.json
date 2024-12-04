@@ -152,9 +152,9 @@
   "Menu.plan": "Vytvoriť plán",
   "WorkoutPlan.pageTitle": "Vytvor si svoj tréningový plán",
   "WorkoutPlan.Create Workout Plan": "Vytvor si plán podľa svojich potrieb",
-  "WorkoutPlan.Workout Name": "Názov tréningu",
-  "WorkoutPlan.Description": "Popis tréningu",
-  "WorkoutPlan.Workout Date": "Dátum tréningu",
+  "Form.Workout Name.labek": "Názov tréningu",
+  "Form.Description.label": "Popis tréningu",
+  "Form.Workout Date.label": "Dátum tréningu",
   "WorkoutPlan.Exercises": "Cviky",
   "WorkoutPlan.Add Exercise": "Vložiť cvik",
   "WorkoutPlan.Save Workout Plan": "Uložiť tréningový plán",
@@ -172,5 +172,12 @@
   "TrainingPlans.reps": "Opakovania:",
   "TrainingPlans.restDuration": "Dĺžka pauzy:",
   "TrainingPlans.seconds": "sekúnd",
-  "FoodLogs.Day": "Deň"
+  "FoodLogs.Day": "Deň",
+  "Form.Exercise.label": "Cvičenie",
+  "Form.Sets.label": "Počet serií",
+  "Form.Reps.label": "Počet opakovaní",
+  "Form.Rest (seconds).label": "Dĺžka pauzy (v sekundách)",
+  "WorkoutPlan.Enter workout name": "Vložte názov tréningového plánu",
+  "WorkoutPlan.Enter workout description": "Vložte popis tréningového plánu",
+  "TrainingPlans.delete": "Zmazať plán"
 }
