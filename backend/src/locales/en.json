@@ -179,5 +179,7 @@
   "Form.Rest (seconds).label": "Rest duration (seconds)",
   "WorkoutPlan.Enter workout name": "Enter training name",
   "WorkoutPlan.Enter workout description": "Enter training description",
-  "TrainingPlans.delete": "Delete plan"
+  "TrainingPlans.delete": "Delete plan",
+  "WorkoutPlan.CreatePlan": "Create plan",
+  "WorkoutPlan.AddExercise": "Add exercise"
 }

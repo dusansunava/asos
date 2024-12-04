@@ -18,6 +18,7 @@ import apiService from "@/lib/fetch/apiService";
 import { IntlMessagePathProvider } from "@/providers/intl/IntlMessagePath";
 import useQueryRequest from "@/lib/fetch/useQueryRequest";
 import { Exercise } from "@/pages/user/exercise/schema";
+import { Message } from "@/providers/intl/IntlMessage";
 
 const workoutSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -193,10 +194,10 @@ const CreateWorkoutPlan = () => {
                 ])
               }
             >
-              Add Exercise
+              <Message>AddExercise</Message>
             </Button>
             <Button variant="default" type="submit">
-              Save Workout Plan
+              <Message>CreatePlan</Message>
             </Button>
           </div>
         </form>
