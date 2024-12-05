@@ -182,5 +182,6 @@
   "TrainingPlans.delete": "Zmazať plán",
   "Form.Workout Name.label": "Názov tréningového plánu",
   "WorkoutPlan.CreatePlan": "Vytvoriť plán",
-  "WorkoutPlan.AddExercise": "Pridať cvik"
+  "WorkoutPlan.AddExercise": "Pridať cvik",
+  "Food.create.pageTitle": "Hľadať jedlo"
 }

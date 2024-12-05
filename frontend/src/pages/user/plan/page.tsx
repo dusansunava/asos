@@ -55,7 +55,7 @@ const CreateWorkoutPlan = () => {
   const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationFn: async (payload: WorkoutFormValues) => {
-      const { data } = await apiService.post("http://localhost:7080/api/training-plans", payload);
+      const { data } = await apiService.post(`${import.meta.env.VITE_BASE_URL}/training-plans`, payload);
       console.log("Submitting payload:", payload);
       return data;
     },

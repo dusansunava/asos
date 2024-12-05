@@ -47,7 +47,7 @@ const TrainingPlansPage = () => {
 
   const { mutate } = useMutation({
     mutationFn: async (payload: String) => {
-      const { data } = await apiService.delete(`http://localhost:7080/api/training-plans/${payload}`);
+      const { data } = await apiService.delete(`${import.meta.env.VITE_BASE_URL}/training-plans/${payload}`);
       console.log("Submitting payload:", payload);
       return data;
     },

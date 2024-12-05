@@ -181,5 +181,6 @@
   "WorkoutPlan.Enter workout description": "Enter training description",
   "TrainingPlans.delete": "Delete plan",
   "WorkoutPlan.CreatePlan": "Create plan",
-  "WorkoutPlan.AddExercise": "Add exercise"
+  "WorkoutPlan.AddExercise": "Add exercise",
+  "Food.create.pageTitle": "Search food"
 }

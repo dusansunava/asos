@@ -3,9 +3,8 @@ import {
   LogOut,
   Menu,
   Home,
-  FolderOpen,
   CalendarPlus,
-  Bike, Languages, Moon, Sun, User
+  Bike, Languages, Moon, Sun, User, UtensilsCrossed, Dumbbell, PackagePlus
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -102,15 +101,15 @@ const MenuContent = () => {
           <Message>home</Message>
         </MenuNavItem>
         <MenuNavItem to="/food">
-          <FolderOpen className="mr-3 h-6 w-6" />
+          <UtensilsCrossed className="mr-3 h-6 w-6" />
           <Message>food</Message>
         </MenuNavItem>
         <MenuNavItem to="/plan">
-          <FolderOpen className="mr-3 h-6 w-6" />
+          <PackagePlus className="mr-3 h-6 w-6" />
           <Message>plan</Message>
         </MenuNavItem>
         <MenuNavItem to="/training">
-          <FolderOpen className="mr-3 h-6 w-6" />
+          <Dumbbell className="mr-3 h-6 w-6" />
           <Message>training</Message>
         </MenuNavItem>
         <MenuNavItem to="/exercises/owned">
