@@ -9,7 +9,7 @@ export default ({ mode }) => {
     plugins: [react()],
     envDir: "../",
     server: {
-      host: process.env.VITE_HOST ? process.env.VITE_HOST : "localhost",
+      host: "0.0.0.0",
       port: mode === "production" ? 4173 : parseInt(process.env.VITE_PORT),
     },
     resolve: {

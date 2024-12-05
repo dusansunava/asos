@@ -16,14 +16,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - VITE_PORT=${VITE_PORT}
         - VITE_BASE_URL=${VITE_BASE_URL}
     restart: always
     ports:
       - "${VITE_PORT}:4173"
-    environment:
-      - VITE_PORT=${VITE_PORT}
-      - VITE_BASE_URL=${VITE_BASE_URL}
     networks:
       - default
     volumes:
