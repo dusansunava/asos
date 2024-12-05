@@ -10,7 +10,8 @@
     "prod": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register ./src/server.ts",
     "prod:migrate": "prisma migrate deploy && npm run prod",
     "dev:migrate": "dotenv -e ./../.env.development prisma migrate dev",
-    "prisma:client": "npx prisma generate"
+    "prisma:client": "npx prisma generate",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -38,6 +39,8 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
     "@types/bcrypt": "^5.0.2",
     "@types/body-parser": "^1.19.5",
     "@types/compression": "^1.7.5",
@@ -47,9 +50,12 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.9.0",
     "@types/nodemailer": "^6.4.14",
+    "babel-jest": "^29.7.0",
     "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
     "nodemon": "^3.0.1",
     "prisma": "^5.8.1",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
